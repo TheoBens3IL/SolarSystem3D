@@ -8,6 +8,7 @@ TagManager:
   - Actors
   - Planets
   - Stars
+  - Sun
   layers:
   - Default
   - TransparentFX
