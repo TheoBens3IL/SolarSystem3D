@@ -134,8 +134,8 @@ public class PlanetControl : MonoBehaviour
         transform.position = sunScript.transform.position + Vector3.right * scaledInitialDistance;
 
         // Vitesse initiale et accélération
-        velocity = initialVelocity;
-        acceleration = ComputeAcceleration(transform.position);
+        //velocity = initialVelocity;
+        //acceleration = ComputeAcceleration(transform.position);
     }
     #endregion
 
@@ -204,7 +204,7 @@ public class PlanetControl : MonoBehaviour
         Mathf.Pow(rScaled / betaRadius, 1f / gammaRadius);
     #endregion
 
-    #region Public API
+    #region Getter & Setter
     public void SetPlanetMass(float newMass)
     {
         planetMass = Mathf.Max(newMass, 0f);
@@ -212,6 +212,26 @@ public class PlanetControl : MonoBehaviour
     }
 
     public float GetPlanetMass() => planetMass;
+
+    // Getter / Setter pour initialVelocity (réel, en m/s)
+    public void SetInitialVelocity(Vector3 newInitialVelocity)
+    {
+        initialVelocity = newInitialVelocity;
+        velocity = newInitialVelocity;
+    }
+
+    public Vector3 GetInitialVelocity() => initialVelocity;
+
+    // Accès au timeScale (utilisé pour convertir Time.fixedDeltaTime en "dt réel")
+    public float GetTimeScale() => timeScale;
+
+    public void SetTimeScale(float newTimeScale)
+    {
+        timeScale = Mathf.Max(newTimeScale, 0f);
+    }
+
+    public float GetKDistance() => kDistance;
+    public float GetAlphaDistance() => alphaDistance;
 
     #endregion
 }
