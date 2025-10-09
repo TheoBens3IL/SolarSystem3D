@@ -17,16 +17,28 @@ public class PlanetControl : MonoBehaviour
     [Header("Size Settings")]
     [Tooltip("Real diameter of the planet in meters.")]
     [SerializeField] private float planetDiameter = 1.2742e7f; // Default Earth (12,742 km)
-
+   
     [Header("Rotation Settings")]
     [SerializeField] private RotationDirection rotationDirection = RotationDirection.Prograde;
     [SerializeField] private float rotationPeriodHours = 24f;
     [SerializeField] private float rotationSpeedMultiplier = 1000f;
+    [SerializeField] private float rotationObliquity = 23.5f; // degrees
+    [SerializeField] private float precessionRate = 23.5f; // degree
+    [SerializeField] private float precessionOffset = 23.5f; // degrees
     [SerializeField] private Vector3 rotationAxis = Vector3.up;
 
-    [Header("Orbital Settings")]
-    [SerializeField] private float initialDistance = 1.5e11f; // meters (~1 AU)
-    [SerializeField] private Vector3 initialVelocity = new Vector3(0f, 0f, 29780f);
+    [Header("Kepler Elements (SI)")]
+    [Tooltip("Semi-major axis in meters")]
+    [SerializeField] private double keplerSemiMajorAxis = 1.495978707e11; // 1 AU in meters
+    [SerializeField] private double keplerEccentricity = 0.0167;
+    [SerializeField] private double keplerInclinationDeg = 0.0;
+    [SerializeField] private double keplerLongAscNodeDeg = 0.0;
+    [SerializeField] private double keplerArgPeriapsisDeg = 0.0;
+    [Tooltip("Mean anomaly at epoch (degrees)")]
+    [SerializeField] private double keplerMeanAnomalyDeg = 0.0;
+    [Tooltip("Epoch time (seconds) as reference for M0. We'll start at t=0 by default.")]
+    [SerializeField] private double keplerEpochSeconds = 0.0;
+
 
     [Header("Time Settings")]
     [SerializeField] private float timeScale = 100000f;
@@ -41,26 +53,35 @@ public class PlanetControl : MonoBehaviour
     #endregion
 
     #region Private Fields
-    private Rigidbody planetRigidbody;
-    private Vector3 velocity;
-    private Vector3 acceleration;
-    private const float G = 6.67430e-11f; // gravitational constant
+    //private Rigidbody planetRigidbody;
+    //private Vector3 velocity;
+    //private Vector3 acceleration;
+    private const float G = 6.67430e-11f;// gravitational constant
+    private GameObject sunObj;
     private StarControl sunScript;
+    // internal simulated time (seconds)
+    private double simulationTimeSeconds = 0.0;
+
+    // central body gravitational parameter (mu = G * M_sun)
+    private double muCentral = 6.67430e-11 * 1.98847e30; // default to Sun
+
     #endregion
 
     #region Unity Callbacks
 
     private void Awake()
     {
-        SetupComponents();
-        ApplyMass();
+        //SetupComponents();
         ApplyVisualScale();
+
+        // Calcule l’axe à partir de l’obliquité
+        rotationAxis = Quaternion.Euler(rotationObliquity, 0f, 0f) * Vector3.up;
     }
 
     private void Start()
     {
         // Récupère le Soleil ici, Start() est appelé après tous les Awake()
-        GameObject sunObj = GameObject.FindGameObjectWithTag("Sun");
+        sunObj = GameObject.FindGameObjectWithTag("Sun");
         if (sunObj != null)
             sunScript = sunObj.GetComponent<StarControl>();
 
@@ -70,40 +91,67 @@ public class PlanetControl : MonoBehaviour
             return;
         }
 
-        // Initialise la position de la planète par rapport au Soleil
-        InitializeOrbit();
     }
 
 
     private void Update()
     {
+        
+        //transform.position *= (1f + hubbleFactor * Time.deltaTime);
         RotatePlanet();
     }
 
     private void FixedUpdate()
     {
-        float dt = Time.fixedDeltaTime * timeScale;
-        //VerletStep(dt);
+        if (sunScript == null) return;
+        // advance simulation time (use your timeScale)
+        double dt = Time.fixedDeltaTime * timeScale;
+        simulationTimeSeconds += dt;
+
+        // Compute real position in meters from Kepler elements
+        double a = keplerSemiMajorAxis;
+        double e = keplerEccentricity;
+        double iRad = keplerInclinationDeg * Mathf.Deg2Rad;
+        double OmegaRad = keplerLongAscNodeDeg * Mathf.Deg2Rad;
+        double omegaRad = keplerArgPeriapsisDeg * Mathf.Deg2Rad;
+        double M0rad = keplerMeanAnomalyDeg * Mathf.Deg2Rad;
+
+        // dt since epoch (seconds)
+        double dtsinceEpoch = simulationTimeSeconds - keplerEpochSeconds;
+
+        Vector3 posMeters = KeplerUtil.OrbitalElementsToPositionMeters(a, e, iRad, OmegaRad, omegaRad, M0rad, dtsinceEpoch, muCentral);
+
+        // distance in meters (real distance)
+        double realDistanceMeters = posMeters.magnitude;
+
+        // convert real distance to logarithmic/compressed Unity distance using your ScaleDistance
+        float scaledUnityDistance = ScaleDistance((float)realDistanceMeters);
+
+        // compute direction from sun to body in meters, but we can use posMeters.normalized for direction
+        Vector3 dir = posMeters.normalized;
+
+        // place object in Unity using Sun position + scaled distance along direction
+        Vector3 sunPos = sunObj.transform.position;
+        transform.position = sunPos + dir * scaledUnityDistance;
+
+        // Optionally also rotate the object to keep orbital frame aligned (not required)
+
     }
     #endregion
 
     #region Setup Methods
-    private void SetupComponents()
-    {
-        planetRigidbody = GetComponent<Rigidbody>();
-        if (planetRigidbody == null)
-        {
-            planetRigidbody = gameObject.AddComponent<Rigidbody>();
-            Debug.Log($"[{nameof(PlanetControl)}] Added Rigidbody to {gameObject.name}.");
-        }
-        planetRigidbody.useGravity = false;
-        planetRigidbody.isKinematic = true;
-    }
+    //private void SetupComponents()
+    //{
+    //    planetRigidbody = GetComponent<Rigidbody>();
+    //    if (planetRigidbody == null)
+    //    {
+    //        planetRigidbody = gameObject.AddComponent<Rigidbody>();
+    //        Debug.Log($"[{nameof(PlanetControl)}] Added Rigidbody to {gameObject.name}.");
+    //    }
+    //    planetRigidbody.useGravity = false;
+    //    planetRigidbody.isKinematic = true;
+    //}
 
-    private void ApplyMass()
-    {
-        planetRigidbody.mass = planetMass;
-    }
 
     /// <summary>
     /// Applies the scaled diameter to the planet's transform so it's visible in Unity.
@@ -116,26 +164,6 @@ public class PlanetControl : MonoBehaviour
         // Unity utilise "localScale" comme facteur multiplicatif sur un Mesh par défaut de taille 1.
         // Donc on met directement le diamètre échelle Unity.
         transform.localScale = new Vector3(scaledDiameter, scaledDiameter, scaledDiameter);
-    }
-
-    /// <summary>
-    /// Initialise la planète sur l'axe X à la distance définie (échelle compressée).
-    /// </summary>
-    private void InitializeOrbit()
-    {
-        if (sunScript == null)
-        {
-            Debug.LogError("[ControlPlanet] No Sun (ControlStar) found!");
-            return;
-        }
-
-        // Position initiale : distance compressée sur l'axe X à partir du Soleil
-        float scaledInitialDistance = ScaleDistance(initialDistance);
-        transform.position = sunScript.transform.position + Vector3.right * scaledInitialDistance;
-
-        // Vitesse initiale et accélération
-        velocity = initialVelocity;
-        acceleration = ComputeAcceleration(transform.position);
     }
     #endregion
 
@@ -152,41 +180,8 @@ public class PlanetControl : MonoBehaviour
             : -rotationAxis;
 
         transform.Rotate(axis, rotationThisFrame, Space.Self);
-    }
-    #endregion
 
-    #region Verlet Integration
-    private void VerletStep(float dt)
-    {
-        Vector3 currentPosition = transform.position;
-        Vector3 newPosition = currentPosition + velocity * dt + 0.5f * acceleration * dt * dt;
-
-        Vector3 newAcceleration = ComputeAcceleration(newPosition);
-
-        velocity += 0.5f * (acceleration + newAcceleration) * dt;
-
-        transform.position = newPosition;
-        acceleration = newAcceleration;
-    }
-
-    private Vector3 ComputeAcceleration(Vector3 planetPosScaled)
-    {
-        if (sunScript == null) return Vector3.zero;
-
-        // direction vers le Soleil
-        Vector3 direction = sunScript.transform.position - planetPosScaled;
-
-        // distance réelle
-        float dScaled = direction.magnitude;
-        float dReal = InverseScaleDistance(dScaled);
-
-        if (dReal < 1e-3f) return Vector3.zero;
-
-        float refMass = sunScript.GetMass();
-
-        float accelMag = G * refMass / (dReal * dReal);
-
-        return direction.normalized * accelMag;
+        
     }
     #endregion
 
@@ -204,14 +199,4 @@ public class PlanetControl : MonoBehaviour
         Mathf.Pow(rScaled / betaRadius, 1f / gammaRadius);
     #endregion
 
-    #region Public API
-    public void SetPlanetMass(float newMass)
-    {
-        planetMass = Mathf.Max(newMass, 0f);
-        ApplyMass();
-    }
-
-    public float GetPlanetMass() => planetMass;
-
-    #endregion
 }
