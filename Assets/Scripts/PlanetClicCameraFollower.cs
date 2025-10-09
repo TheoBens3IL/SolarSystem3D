@@ -4,6 +4,7 @@ using UnityEngine;
 /// <summary>
 /// Permet de cliquer sur une planète pour que la caméra principale s'en approche puis la suive.
 /// Appuyer sur Z / Q / S / D (ou W / A / S / D) quitte la vue suivie et rétablit la caméra.
+/// Ce script sélectionne la planète et délègue le suivi au ControllCamera (évite duplication).
 /// </summary>
 [RequireComponent(typeof(Camera))]
 public class PlanetClicCameraFollower : MonoBehaviour
@@ -11,7 +12,7 @@ public class PlanetClicCameraFollower : MonoBehaviour
     [Tooltip("Durée (s) de la transition quand on se déplace vers la planète")]
     public float moveDuration = 1.0f;
 
-    [Tooltip("Vitesse de suivi (position smoothing)")]
+    [Tooltip("Vitesse de suivi (position smoothing) transférée à la ControllCamera")]
     public float followSmoothSpeed = 10f;
 
     [Tooltip("Offset local par rapport à la planète quand on suit (si zero -> conserve offset courant)")]
@@ -20,41 +21,35 @@ public class PlanetClicCameraFollower : MonoBehaviour
     // si true, on conserve l'offset courant de la caméra lors du clic (ignore followOffset)
     public bool keepCurrentOffsetOnSelect = false;
 
+    // paramètres transférés à ControllCamera
+    public float followMinDistance = 0.5f;
+    public float followMaxDistance = 2000f;
+    public float followRotateSpeed = 0.2f;
+    public float followZoomSpeed = 50f;
+    public float followMinVerticalAngle = 5f;
+    public float followMaxVerticalAngle = 175f;
+
     private Camera mainCam;
+    private ControllCamera controllCam;
     private Transform followTarget;
-    private bool isFollowing = false;
-
-    // sauvegarde de l'état caméra pour restauration
-    private Vector3 savedPosition;
-    private Quaternion savedRotation;
-    private Transform savedParent;
-
-    // offset actuel en world space (target.position + worldOffset)
-    private Vector3 worldOffset;
 
     void Awake()
     {
         mainCam = Camera.main ?? GetComponent<Camera>();
+        controllCam = mainCam != null ? mainCam.GetComponent<ControllCamera>() : null;
         if (mainCam == null)
             Debug.LogError("[PlanetClickCameraFollower] Pas de Camera principale trouvée.");
+        if (controllCam == null)
+            Debug.LogWarning("[PlanetClickCameraFollower] ControllCamera non trouvé sur la caméra principale. Le suivi utilisera un comportement minimal.");
     }
 
     void Update()
     {
         HandleClick();
-        HandleExitInput();
-    }
-
-    void LateUpdate()
-    {
-        if (isFollowing && followTarget != null)
+        // exit handled by ControllCamera if in follow mode, but keep StopFollowing fallback
+        if (controllCam == null && Input.anyKeyDown)
         {
-            // position cible = target.position + worldOffset ; lissage
-            Vector3 desiredPos = followTarget.position + worldOffset;
-            mainCam.transform.position = Vector3.Lerp(mainCam.transform.position, desiredPos, 1f - Mathf.Exp(-followSmoothSpeed * Time.deltaTime));
-
-            // regarder la planète
-            mainCam.transform.LookAt(followTarget.position);
+            // nothing
         }
     }
 
@@ -66,52 +61,38 @@ public class PlanetClicCameraFollower : MonoBehaviour
         Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, 1e6f))
         {
-            // chercher PlanetControl sur l'objet frappé ou sur ses parents
             var target = hit.collider.transform.GetComponentInParent<PlanetControl>();
             if (target != null)
             {
-                StartCoroutine(MoveAndFollow(target.transform));
+                StartCoroutine(MoveAndDelegateFollow(target.transform));
             }
         }
     }
 
-    private void HandleExitInput()
-    {
-        // touches pour quitter le suivi : AZERTY (Z,Q,S,D) et QWERTY (W,A,S,D)
-        if (isFollowing && (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Q) ||
-                            Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.D) ||
-                            Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.A)))
-        {
-            StopFollowing();
-        }
-    }
-
-    private IEnumerator MoveAndFollow(Transform target)
+    private IEnumerator MoveAndDelegateFollow(Transform target)
     {
         if (mainCam == null || target == null) yield break;
-
-        // sauvegarde état caméra
-        savedPosition = mainCam.transform.position;
-        savedRotation = mainCam.transform.rotation;
-        savedParent = mainCam.transform.parent;
 
         followTarget = target;
 
         // calculer worldOffset
+        Vector3 worldOffset;
         if (keepCurrentOffsetOnSelect)
         {
             worldOffset = mainCam.transform.position - followTarget.position;
+            if (worldOffset.magnitude < 1e-6f) worldOffset = followOffset;
         }
         else
         {
-            // convertir followOffset (local relative to target) en world offset
             worldOffset = followTarget.TransformVector(followOffset);
         }
 
-        // calculer destination
-        Vector3 dest = followTarget.position + worldOffset;
+        // clamp distance
+        float d = Mathf.Clamp(worldOffset.magnitude, followMinDistance, followMaxDistance);
+        worldOffset = worldOffset.normalized * d;
 
-        // transition lissée
+        // transition lissée vers la position initiale de follow
+        Vector3 dest = followTarget.position + worldOffset;
         float elapsed = 0f;
         Vector3 startPos = mainCam.transform.position;
         Quaternion startRot = mainCam.transform.rotation;
@@ -130,19 +111,21 @@ public class PlanetClicCameraFollower : MonoBehaviour
         mainCam.transform.position = dest;
         mainCam.transform.rotation = endRot;
 
-        isFollowing = true;
+        // déléguer le suivi à ControllCamera si présent
+        if (controllCam != null)
+        {
+            controllCam.StartFollow(followTarget, worldOffset,
+                followSmoothSpeed, followMinDistance, followMaxDistance,
+                followRotateSpeed, followZoomSpeed, followMinVerticalAngle, followMaxVerticalAngle);
+        }
     }
 
-    private void StopFollowing()
+    // Optionnel : si ControllCamera absent, on peut implémenter un Stop fallback
+    public void StopFollowing()
     {
-        if (mainCam == null) return;
-
-        isFollowing = false;
-        followTarget = null;
-
-        // restaurer état précédent
-        mainCam.transform.parent = savedParent;
-        mainCam.transform.position = savedPosition;
-        mainCam.transform.rotation = savedRotation;
+        if (controllCam != null)
+        {
+            controllCam.StopFollow();
+        }
     }
 }

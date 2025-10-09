@@ -99,9 +99,18 @@ public class PlanetControl : MonoBehaviour
         
         //transform.position *= (1f + hubbleFactor * Time.deltaTime);
         RotatePlanet();
+        UpdateOrbitPosition();
     }
 
     private void FixedUpdate()
+    {
+        
+    }
+    #endregion
+
+    #region Setup Methods
+
+    private void UpdateOrbitPosition()
     {
         if (sunScript == null) return;
         // advance simulation time (use your timeScale)
@@ -137,9 +146,6 @@ public class PlanetControl : MonoBehaviour
         // Optionally also rotate the object to keep orbital frame aligned (not required)
 
     }
-    #endregion
-
-    #region Setup Methods
     //private void SetupComponents()
     //{
     //    planetRigidbody = GetComponent<Rigidbody>();
