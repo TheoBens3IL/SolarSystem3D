@@ -226,7 +226,7 @@ MonoBehaviour:
   initialDistance: 7.79e+11
   initialVelocity: {x: 0, y: 0, z: 29780}
   timeScale: 100000
-  kDistance: 7500
+  kDistance: 20
   alphaDistance: 0.000000001
   betaRadius: 0.1
   gammaRadius: 0.5
@@ -261,7 +261,7 @@ MonoBehaviour:
   initialDistance: 1.08e+11
   initialVelocity: {x: 0, y: 0, z: 29780}
   timeScale: 100000
-  kDistance: 7500
+  kDistance: 20
   alphaDistance: 0.000000001
   betaRadius: 0.1
   gammaRadius: 0.5
@@ -296,7 +296,7 @@ MonoBehaviour:
   initialDistance: 5.8e+10
   initialVelocity: {x: 0, y: 0, z: 29780}
   timeScale: 100000
-  kDistance: 7500
+  kDistance: 20
   alphaDistance: 0.000000001
   betaRadius: 0.1
   gammaRadius: 0.5
@@ -360,7 +360,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 100000
+  far clip plane: 10000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -387,13 +387,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.054850947, y: -0.43755594, z: 0.02680105, w: 0.8971165}
-  m_LocalPosition: {x: 44290, y: 1417, z: -11384}
+  m_LocalRotation: {x: 0.07801136, y: -0.2514067, z: 0.020374302, w: 0.9645174}
+  m_LocalPosition: {x: 3026.1465, y: 723.71, z: -3429.5312}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 7, y: -52, z: 0.005}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -637,7 +637,7 @@ MonoBehaviour:
   initialDistance: 2.29e+11
   initialVelocity: {x: 0, y: 0, z: 29780}
   timeScale: 100000
-  kDistance: 7500
+  kDistance: 20
   alphaDistance: 0.000000001
   betaRadius: 0.1
   gammaRadius: 0.5
@@ -659,19 +659,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4620931210112870, guid: ab152f61198d54532ae39108e616ff59, type: 3}
       propertyPath: m_LocalScale.x
-      value: 48.8
+      value: 4.88
       objectReference: {fileID: 0}
     - target: {fileID: 4620931210112870, guid: ab152f61198d54532ae39108e616ff59, type: 3}
       propertyPath: m_LocalScale.y
-      value: 48.8
+      value: 4.88
       objectReference: {fileID: 0}
     - target: {fileID: 4620931210112870, guid: ab152f61198d54532ae39108e616ff59, type: 3}
       propertyPath: m_LocalScale.z
-      value: 48.8
+      value: 4.88
       objectReference: {fileID: 0}
     - target: {fileID: 4620931210112870, guid: ab152f61198d54532ae39108e616ff59, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3500
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4620931210112870, guid: ab152f61198d54532ae39108e616ff59, type: 3}
       propertyPath: m_LocalPosition.y
@@ -1089,7 +1089,7 @@ MonoBehaviour:
   initialDistance: 1.5e+11
   initialVelocity: {x: 0, y: 0, z: 29780}
   timeScale: 100000
-  kDistance: 2000
+  kDistance: 20
   alphaDistance: 0.000000001
   betaRadius: 0.1
   gammaRadius: 0.5
@@ -1188,7 +1188,7 @@ MonoBehaviour:
   initialDistance: 4.525e+12
   initialVelocity: {x: 0, y: 0, z: 29780}
   timeScale: 100000
-  kDistance: 7500
+  kDistance: 20
   alphaDistance: 0.000000001
   betaRadius: 0.1
   gammaRadius: 0.5
@@ -1223,7 +1223,7 @@ MonoBehaviour:
   initialDistance: 2.884e+12
   initialVelocity: {x: 0, y: 0, z: 29780}
   timeScale: 100000
-  kDistance: 7500
+  kDistance: 20
   alphaDistance: 0.000000001
   betaRadius: 0.1
   gammaRadius: 0.5
@@ -1334,7 +1334,7 @@ MonoBehaviour:
   initialDistance: 1.428e+12
   initialVelocity: {x: 0, y: 0, z: 297800}
   timeScale: 100000
-  kDistance: 7500
+  kDistance: 20
   alphaDistance: 0.000000001
   betaRadius: 0.1
   gammaRadius: 0.5
@@ -1369,7 +1369,7 @@ MonoBehaviour:
   initialDistance: 1.5e+11
   initialVelocity: {x: 0, y: 0, z: 29780}
   timeScale: 100000
-  kDistance: 7500
+  kDistance: 20
   alphaDistance: 0.000000001
   betaRadius: 0.1
   gammaRadius: 0.5
@@ -1628,7 +1628,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 50000
+  far clip plane: 10000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -1655,13 +1655,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1572860260}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.31647632, y: 0.0031786398, z: -0.00072944886, w: 0.9485948}
-  m_LocalPosition: {x: -1536.308, y: 38423.87, z: -46760.18}
+  m_LocalRotation: {x: 0.6217311, y: -0.004600223, z: 0.0038392153, w: 0.7832079}
+  m_LocalPosition: {x: 46.837852, y: 11177.502, z: -3513.5635}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 36.9, y: 0.399, z: 0.045}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1650083338 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3548356298615962880, guid: 5f776740c447e45afb25edbca842de92, type: 3}
@@ -1698,7 +1698,7 @@ MonoBehaviour:
   initialDistance: 1.5e+11
   initialVelocity: {x: 0, y: 0, z: 29780}
   timeScale: 100000
-  kDistance: 7500
+  kDistance: 20
   alphaDistance: 0.000000001
   betaRadius: 0.1
   gammaRadius: 0.5
@@ -1712,15 +1712,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1229251971759408710, guid: 5f776740c447e45afb25edbca842de92, type: 3}
       propertyPath: m_LocalScale.x
-      value: 14000
+      value: 1392.7
       objectReference: {fileID: 0}
     - target: {fileID: 1229251971759408710, guid: 5f776740c447e45afb25edbca842de92, type: 3}
       propertyPath: m_LocalScale.y
-      value: 14000
+      value: 1392.7
       objectReference: {fileID: 0}
     - target: {fileID: 1229251971759408710, guid: 5f776740c447e45afb25edbca842de92, type: 3}
       propertyPath: m_LocalScale.z
-      value: 14000
+      value: 1392.7
       objectReference: {fileID: 0}
     - target: {fileID: 1229251971759408710, guid: 5f776740c447e45afb25edbca842de92, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1779,6 +1779,9 @@ PrefabInstance:
       addedObject: {fileID: 1921143282}
     - targetCorrespondingSourceObject: {fileID: 3548356298615962880, guid: 5f776740c447e45afb25edbca842de92, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 1921143284}
+    - targetCorrespondingSourceObject: {fileID: 3548356298615962880, guid: 5f776740c447e45afb25edbca842de92, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 1921143285}
     - targetCorrespondingSourceObject: {fileID: 6563966954327991749, guid: 5f776740c447e45afb25edbca842de92, type: 3}
       insertIndex: -1
@@ -1816,6 +1819,31 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &1921143284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1650083338}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8adadad2b117d5d4c9efe8d9732c200b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  planetMass: 1.99e+30
+  planetDiameter: 1.3927e+9
+  rotationDirection: 0
+  rotationPeriodHours: 24
+  rotationSpeedMultiplier: 1000
+  rotationAxis: {x: 0, y: 1, z: 0}
+  initialDistance: 1.5e+11
+  initialVelocity: {x: 0, y: 0, z: 29780}
+  timeScale: 100
+  kDistance: 20
+  alphaDistance: 0.000000001
+  betaRadius: 0.1
+  gammaRadius: 0.5
 --- !u!114 &1921143285
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1830,7 +1858,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   starMass: 1.989e+30
   starDiameter: 1.3927e+9
-  betaRadius: 0.4
+  betaRadius: 0.1
   gammaRadius: 0.5
 --- !u!1 &1933235862
 GameObject:
@@ -1841,7 +1869,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1933235863}
-  - component: {fileID: 1933235864}
   m_Layer: 0
   m_Name: Planets
   m_TagString: Untagged
@@ -1874,28 +1901,6 @@ Transform:
   - {fileID: 713584125}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1933235864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1933235862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4dfef851f299d214492a6f0f7f13d663, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pointsPerOrbit: 2000
-  planets:
-  - {fileID: 1529225856}
-  - {fileID: 89667511}
-  - {fileID: 411797016}
-  - {fileID: 281501563}
-  - {fileID: 1382520380}
-  - {fileID: 1470375753}
-  - {fileID: 1403106877}
-  - {fileID: 256964913}
 --- !u!1 &2044020426
 GameObject:
   m_ObjectHideFlags: 0
@@ -1970,7 +1975,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 0
+  m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0

@@ -10,7 +10,7 @@ using UnityEngine;
 /// </summary>
 public class ControllCamera : MonoBehaviour
 {
-    public float moveSpeed = 2000f;       // Translation speed
+    public float moveSpeed = 200f;        // Translation speed
     public float mouseSensitivity = 2f;   // Mouse rotation sensitivity
     public float scrollSpeed = 100f;      // Zoom speed
 
