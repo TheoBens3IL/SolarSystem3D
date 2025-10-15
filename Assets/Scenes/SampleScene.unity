@@ -137,15 +137,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4030326048459444, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
       propertyPath: m_LocalScale.x
-      value: 139.82
+      value: 1182.4551
       objectReference: {fileID: 0}
     - target: {fileID: 4030326048459444, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
       propertyPath: m_LocalScale.y
-      value: 139.82
+      value: 1182.4551
       objectReference: {fileID: 0}
     - target: {fileID: 4030326048459444, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
       propertyPath: m_LocalScale.z
-      value: 139.82
+      value: 1182.4551
       objectReference: {fileID: 0}
     - target: {fileID: 4030326048459444, guid: 7e4bfb3c6ba1d4bc4ba31d585abdae0f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -223,27 +223,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8adadad2b117d5d4c9efe8d9732c200b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetMass: 1.9e+27
+  planetName: Planet
+  planetMass: 1.9000000297707774e+27
   planetDiameter: 139820000
+  kepler:
+    a: 0
+    e: 0
+    iDeg: 0
+    OmegaDeg: 0
+    omegaDeg: 0
+    M0Deg: 0
+    epochSeconds: 0
   rotationDirection: 0
-  rotationPeriodHours: 9.9
+  rotationPeriodHours: 9.899999618530273
   rotationSpeedMultiplier: 1000
-  rotationObliquity: 3.13
-  precessionRate: 0.01
-  precessionOffset: 0
-  rotationAxis: {x: 0, y: 1, z: 0}
-  keplerSemiMajorAxis: 778300000000
-  keplerEccentricity: 0.04838624
-  keplerInclinationDeg: 1.3044
-  keplerLongAscNodeDeg: 100.47391
-  keplerArgPeriapsisDeg: 273.867
-  keplerMeanAnomalyDeg: 19.66796
-  keplerEpochSeconds: 0
-  timeScale: 100000
+  rotationObliquityDeg: 23.44
+  enableSpin: 1
   kDistance: 5000
   alphaDistance: 0.000000001
-  betaRadius: 0.1
-  gammaRadius: 0.5
 --- !u!120 &89667514
 LineRenderer:
   serializedVersion: 2
@@ -358,22 +355,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89667507}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sunTransform: {fileID: 1921143280}
-  semiMajorAxis: 778300000000
-  eccentricity: 0.04838624
-  inclinationDeg: 1.3044
-  longAscNodeDeg: 100.47391
-  argPeriapsisDeg: 273.867
-  resolution: 500
-  orbitColor: {r: 1, g: 1, b: 1, a: 1}
-  lineWidth: 50
-  kDistance: 5000
-  alphaDistance: 0.000000001
+  targetPlanet: {fileID: 89667511}
+  segments: 1000
+  lineWidthStart: 100
+  lineWidthEnd: 100
+  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  updateEveryFrame: 0
 --- !u!1 &256964909 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1647581975099426, guid: 835acc1a9ebe24c0fa3854c99346f9cd, type: 3}
@@ -396,27 +388,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8adadad2b117d5d4c9efe8d9732c200b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetMass: 4.87e+24
+  planetName: Planet
+  planetMass: 4.869999810916809e+24
   planetDiameter: 12104000
+  kepler:
+    a: 0
+    e: 0
+    iDeg: 0
+    OmegaDeg: 0
+    omegaDeg: 0
+    M0Deg: 0
+    epochSeconds: 0
   rotationDirection: 1
   rotationPeriodHours: 5832
   rotationSpeedMultiplier: 1000
-  rotationObliquity: 177.4
-  precessionRate: 0.01
-  precessionOffset: 0
-  rotationAxis: {x: 0, y: 1, z: 0}
-  keplerSemiMajorAxis: 108100000000
-  keplerEccentricity: 0.00677672
-  keplerInclinationDeg: 3.39468
-  keplerLongAscNodeDeg: 76.67984
-  keplerArgPeriapsisDeg: 54.92262
-  keplerMeanAnomalyDeg: 50.37663
-  keplerEpochSeconds: 0
-  timeScale: 100000
+  rotationObliquityDeg: 23.44
+  enableSpin: 1
   kDistance: 5000
   alphaDistance: 0.000000001
-  betaRadius: 0.1
-  gammaRadius: 0.5
 --- !u!120 &256964916
 LineRenderer:
   serializedVersion: 2
@@ -531,22 +520,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 256964909}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sunTransform: {fileID: 1921143280}
-  semiMajorAxis: 108100000000
-  eccentricity: 0.00677672
-  inclinationDeg: 3.39468
-  longAscNodeDeg: 76.67984
-  argPeriapsisDeg: 54.92262
-  resolution: 500
-  orbitColor: {r: 1, g: 1, b: 1, a: 1}
-  lineWidth: 50
-  kDistance: 5000
-  alphaDistance: 0.000000001
+  targetPlanet: {fileID: 256964913}
+  segments: 1000
+  lineWidthStart: 100
+  lineWidthEnd: 100
+  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  updateEveryFrame: 0
 --- !u!1 &281501559 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1856687845478954, guid: ab152f61198d54532ae39108e616ff59, type: 3}
@@ -569,27 +553,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8adadad2b117d5d4c9efe8d9732c200b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetMass: 3.3e+23
+  planetName: Planet
+  planetMass: 3.300000016876774e+23
   planetDiameter: 4879000
+  kepler:
+    a: 0
+    e: 0
+    iDeg: 0
+    OmegaDeg: 0
+    omegaDeg: 0
+    M0Deg: 0
+    epochSeconds: 0
   rotationDirection: 0
   rotationPeriodHours: 1407.5
   rotationSpeedMultiplier: 1000
-  rotationObliquity: 0.03
-  precessionRate: 0.01
-  precessionOffset: 0
-  rotationAxis: {x: 0, y: 1, z: 0}
-  keplerSemiMajorAxis: 57870000000
-  keplerEccentricity: 0.20563593
-  keplerInclinationDeg: 7.00498
-  keplerLongAscNodeDeg: 48.33077
-  keplerArgPeriapsisDeg: 29.12703
-  keplerMeanAnomalyDeg: 174.79253
-  keplerEpochSeconds: 0
-  timeScale: 100000
+  rotationObliquityDeg: 0.03
+  enableSpin: 1
   kDistance: 5000
   alphaDistance: 0.000000001
-  betaRadius: 0.1
-  gammaRadius: 0.5
 --- !u!120 &281501566
 LineRenderer:
   serializedVersion: 2
@@ -709,17 +690,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sunTransform: {fileID: 1921143280}
-  semiMajorAxis: 57870000000
-  eccentricity: 0.20563593
-  inclinationDeg: 7.00498
-  longAscNodeDeg: 48.33077
-  argPeriapsisDeg: 29.12703
-  resolution: 500
-  orbitColor: {r: 1, g: 1, b: 1, a: 1}
-  lineWidth: 50
-  kDistance: 5000
-  alphaDistance: 0.000000001
+  targetPlanet: {fileID: 281501563}
+  segments: 1000
+  lineWidthStart: 100
+  lineWidthEnd: 100
+  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  updateEveryFrame: 0
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -733,6 +709,7 @@ GameObject:
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
   - component: {fileID: 330585548}
+  - component: {fileID: 330585549}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -780,7 +757,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 10000
+  far clip plane: 100000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -808,7 +785,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.3054254, y: -0.008569644, z: 0.0027483928, w: 0.9521735}
-  m_LocalPosition: {x: 13709.572, y: 25642.703, z: -35226.047}
+  m_LocalPosition: {x: 13709.571, y: 25642.703, z: -35226.047}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -870,9 +847,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf4c0baa54d26240b9706172c6a6e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 200
+  moveSpeed: 2000
   mouseSensitivity: 2
-  scrollSpeed: 100
+  scrollSpeed: 1000
+--- !u!114 &330585549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 330585543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55bb3525ae6a5214ea242be547d39142, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveDuration: 1
+  followSmoothSpeed: 10
+  followOffset: {x: 0, y: 5, z: -10}
+  keepCurrentOffsetOnSelect: 0
 --- !u!1 &349169788
 GameObject:
   m_ObjectHideFlags: 0
@@ -1048,27 +1041,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8adadad2b117d5d4c9efe8d9732c200b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetMass: 6.42e+23
+  planetName: Planet
+  planetMass: 6.420000163846805e+23
   planetDiameter: 6779000
+  kepler:
+    a: 0
+    e: 0
+    iDeg: 0
+    OmegaDeg: 0
+    omegaDeg: 0
+    M0Deg: 0
+    epochSeconds: 0
   rotationDirection: 0
-  rotationPeriodHours: 24.6
+  rotationPeriodHours: 24.600000381469727
   rotationSpeedMultiplier: 1000
-  rotationObliquity: 25.19
-  precessionRate: 0.01
-  precessionOffset: 0
-  rotationAxis: {x: 0, y: 1, z: 0}
-  keplerSemiMajorAxis: 227900000000
-  keplerEccentricity: 0.0933941
-  keplerInclinationDeg: 1.85061
-  keplerLongAscNodeDeg: 49.55954
-  keplerArgPeriapsisDeg: 286.537
-  keplerMeanAnomalyDeg: 19.373
-  keplerEpochSeconds: 0
-  timeScale: 100000
+  rotationObliquityDeg: 23.44
+  enableSpin: 1
   kDistance: 5000
   alphaDistance: 0.000000001
-  betaRadius: 0.1
-  gammaRadius: 0.5
 --- !u!120 &411797019
 LineRenderer:
   serializedVersion: 2
@@ -1183,22 +1173,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 411797012}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sunTransform: {fileID: 1921143280}
-  semiMajorAxis: 227900000000
-  eccentricity: 0.0933941
-  inclinationDeg: 1.85061
-  longAscNodeDeg: 49.55954
-  argPeriapsisDeg: 286.537
-  resolution: 500
-  orbitColor: {r: 1, g: 1, b: 1, a: 1}
-  lineWidth: 50
-  kDistance: 5000
-  alphaDistance: 0.000000001
+  targetPlanet: {fileID: 411797016}
+  segments: 1000
+  lineWidthStart: 100
+  lineWidthEnd: 100
+  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  updateEveryFrame: 0
 --- !u!1001 &428232405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1217,15 +1202,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4620931210112870, guid: ab152f61198d54532ae39108e616ff59, type: 3}
       propertyPath: m_LocalScale.x
-      value: 4.88
+      value: 220.8846
       objectReference: {fileID: 0}
     - target: {fileID: 4620931210112870, guid: ab152f61198d54532ae39108e616ff59, type: 3}
       propertyPath: m_LocalScale.y
-      value: 4.88
+      value: 220.8846
       objectReference: {fileID: 0}
     - target: {fileID: 4620931210112870, guid: ab152f61198d54532ae39108e616ff59, type: 3}
       propertyPath: m_LocalScale.z
-      value: 4.88
+      value: 220.8846
       objectReference: {fileID: 0}
     - target: {fileID: 4620931210112870, guid: ab152f61198d54532ae39108e616ff59, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1299,15 +1284,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4677324220665258, guid: b4201d402613a4464b35c805dafcca62, type: 3}
       propertyPath: m_LocalScale.x
-      value: 116.46
+      value: 1079.1664
       objectReference: {fileID: 0}
     - target: {fileID: 4677324220665258, guid: b4201d402613a4464b35c805dafcca62, type: 3}
       propertyPath: m_LocalScale.y
-      value: 116.46
+      value: 1079.1664
       objectReference: {fileID: 0}
     - target: {fileID: 4677324220665258, guid: b4201d402613a4464b35c805dafcca62, type: 3}
       propertyPath: m_LocalScale.z
-      value: 116.46
+      value: 1079.1664
       objectReference: {fileID: 0}
     - target: {fileID: 4677324220665258, guid: b4201d402613a4464b35c805dafcca62, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1381,15 +1366,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4643521465287934, guid: 300f80108a63f48618cb4a1c8b8c1e86, type: 3}
       propertyPath: m_LocalScale.x
-      value: 12.742
+      value: 357.15543
       objectReference: {fileID: 0}
     - target: {fileID: 4643521465287934, guid: 300f80108a63f48618cb4a1c8b8c1e86, type: 3}
       propertyPath: m_LocalScale.y
-      value: 12.742
+      value: 357.15543
       objectReference: {fileID: 0}
     - target: {fileID: 4643521465287934, guid: 300f80108a63f48618cb4a1c8b8c1e86, type: 3}
       propertyPath: m_LocalScale.z
-      value: 12.742
+      value: 357.15543
       objectReference: {fileID: 0}
     - target: {fileID: 4643521465287934, guid: 300f80108a63f48618cb4a1c8b8c1e86, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1463,15 +1448,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4799057029891002, guid: c91342f6e3afc48fd958056404ead345, type: 3}
       propertyPath: m_LocalScale.x
-      value: 51.118
+      value: 712.2078
       objectReference: {fileID: 0}
     - target: {fileID: 4799057029891002, guid: c91342f6e3afc48fd958056404ead345, type: 3}
       propertyPath: m_LocalScale.y
-      value: 51.118
+      value: 712.2078
       objectReference: {fileID: 0}
     - target: {fileID: 4799057029891002, guid: c91342f6e3afc48fd958056404ead345, type: 3}
       propertyPath: m_LocalScale.z
-      value: 51.118
+      value: 712.2078
       objectReference: {fileID: 0}
     - target: {fileID: 4799057029891002, guid: c91342f6e3afc48fd958056404ead345, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1542,6 +1527,18 @@ PrefabInstance:
     - target: {fileID: 1408581670749804, guid: f9a741bb8762344c6a2a9cb4217ef728, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4693579709242440, guid: f9a741bb8762344c6a2a9cb4217ef728, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 186.41351
+      objectReference: {fileID: 0}
+    - target: {fileID: 4693579709242440, guid: f9a741bb8762344c6a2a9cb4217ef728, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 186.41351
+      objectReference: {fileID: 0}
+    - target: {fileID: 4693579709242440, guid: f9a741bb8762344c6a2a9cb4217ef728, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 186.41351
       objectReference: {fileID: 0}
     - target: {fileID: 4693579709242440, guid: f9a741bb8762344c6a2a9cb4217ef728, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1662,27 +1659,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8adadad2b117d5d4c9efe8d9732c200b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetMass: 7.35e+22
+  planetName: Planet
+  planetMass: 7.34999979193829e+22
   planetDiameter: 3475000
+  kepler:
+    a: 0
+    e: 0
+    iDeg: 0
+    OmegaDeg: 0
+    omegaDeg: 0
+    M0Deg: 0
+    epochSeconds: 0
   rotationDirection: 0
   rotationPeriodHours: 24
   rotationSpeedMultiplier: 1000
-  rotationObliquity: 23.5
-  precessionRate: 23.5
-  precessionOffset: 23.5
-  rotationAxis: {x: 0, y: 1, z: 0}
-  keplerSemiMajorAxis: 149597870700
-  keplerEccentricity: 0.0167
-  keplerInclinationDeg: 0
-  keplerLongAscNodeDeg: 0
-  keplerArgPeriapsisDeg: 0
-  keplerMeanAnomalyDeg: 0
-  keplerEpochSeconds: 0
-  timeScale: 100000
+  rotationObliquityDeg: 23.44
+  enableSpin: 1
   kDistance: 20
   alphaDistance: 0.000000001
-  betaRadius: 0.1
-  gammaRadius: 0.5
 --- !u!1001 &1204011801
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1698,6 +1692,18 @@ PrefabInstance:
     - target: {fileID: 1901559596380486, guid: baebbc833ecda42dd8a75966c9f62420, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103310470163434, guid: baebbc833ecda42dd8a75966c9f62420, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 154.17522
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103310470163434, guid: baebbc833ecda42dd8a75966c9f62420, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 154.17522
+      objectReference: {fileID: 0}
+    - target: {fileID: 4103310470163434, guid: baebbc833ecda42dd8a75966c9f62420, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 154.17522
       objectReference: {fileID: 0}
     - target: {fileID: 4103310470163434, guid: baebbc833ecda42dd8a75966c9f62420, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1769,27 +1775,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8adadad2b117d5d4c9efe8d9732c200b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetMass: 1.02e+26
+  planetName: Planet
+  planetMass: 1.0199999853023588e+26
   planetDiameter: 49244000
+  kepler:
+    a: 0
+    e: 0
+    iDeg: 0
+    OmegaDeg: 0
+    omegaDeg: 0
+    M0Deg: 0
+    epochSeconds: 0
   rotationDirection: 0
-  rotationPeriodHours: 16.1
+  rotationPeriodHours: 16.100000381469727
   rotationSpeedMultiplier: 1000
-  rotationObliquity: 28.32
-  precessionRate: 0.01
-  precessionOffset: 0
-  rotationAxis: {x: 0, y: 1, z: 0}
-  keplerSemiMajorAxis: 4496000000000
-  keplerEccentricity: 0.00858587
-  keplerInclinationDeg: 1.76917
-  keplerLongAscNodeDeg: 131.784
-  keplerArgPeriapsisDeg: 273.187
-  keplerMeanAnomalyDeg: 256.228
-  keplerEpochSeconds: 0
-  timeScale: 100000
+  rotationObliquityDeg: 23.44
+  enableSpin: 1
   kDistance: 5000
   alphaDistance: 0.000000001
-  betaRadius: 0.1
-  gammaRadius: 0.5
 --- !u!120 &1382520383
 LineRenderer:
   serializedVersion: 2
@@ -1904,22 +1907,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1382520376}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sunTransform: {fileID: 1921143280}
-  semiMajorAxis: 4496000000000
-  eccentricity: 0.00858587
-  inclinationDeg: 1.76917
-  longAscNodeDeg: 131.784
-  argPeriapsisDeg: 273.187
-  resolution: 500
-  orbitColor: {r: 1, g: 1, b: 1, a: 1}
-  lineWidth: 50
-  kDistance: 5000
-  alphaDistance: 0.000000001
+  targetPlanet: {fileID: 1382520380}
+  segments: 1000
+  lineWidthStart: 100
+  lineWidthEnd: 100
+  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  updateEveryFrame: 0
 --- !u!1 &1403106873 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1014736895960144, guid: c91342f6e3afc48fd958056404ead345, type: 3}
@@ -1942,27 +1940,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8adadad2b117d5d4c9efe8d9732c200b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetMass: 8.68e+25
+  planetName: Planet
+  planetMass: 8.680000131733569e+25
   planetDiameter: 50724000
+  kepler:
+    a: 0
+    e: 0
+    iDeg: 0
+    OmegaDeg: 0
+    omegaDeg: 0
+    M0Deg: 0
+    epochSeconds: 0
   rotationDirection: 1
-  rotationPeriodHours: 17.2
+  rotationPeriodHours: 17.200000762939453
   rotationSpeedMultiplier: 1000
-  rotationObliquity: 97.77
-  precessionRate: 0.01
-  precessionOffset: 0
-  rotationAxis: {x: 0, y: 1, z: 0}
-  keplerSemiMajorAxis: 2872000000000
-  keplerEccentricity: 0.04716771
-  keplerInclinationDeg: 0.76986
-  keplerLongAscNodeDeg: 74.0169
-  keplerArgPeriapsisDeg: 96.998857
-  keplerMeanAnomalyDeg: 142.59
-  keplerEpochSeconds: 0
-  timeScale: 100000
+  rotationObliquityDeg: 23.44
+  enableSpin: 1
   kDistance: 5000
   alphaDistance: 0.000000001
-  betaRadius: 0.1
-  gammaRadius: 0.5
 --- !u!120 &1403106880
 LineRenderer:
   serializedVersion: 2
@@ -2077,22 +2072,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1403106873}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sunTransform: {fileID: 1921143280}
-  semiMajorAxis: 2872000000000
-  eccentricity: 0.04716771
-  inclinationDeg: 0.76986
-  longAscNodeDeg: 74.0169
-  argPeriapsisDeg: 96.998857
-  resolution: 500
-  orbitColor: {r: 1, g: 1, b: 1, a: 1}
-  lineWidth: 50
-  kDistance: 5000
-  alphaDistance: 0.000000001
+  targetPlanet: {fileID: 1403106877}
+  segments: 1000
+  lineWidthStart: 100
+  lineWidthEnd: 100
+  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  updateEveryFrame: 0
 --- !u!1001 &1408962027
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2111,15 +2101,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4387678931267766, guid: 1818e1a170ef94c3aacee2ba50057521, type: 3}
       propertyPath: m_LocalScale.x
-      value: 6.779
+      value: 260.36514
       objectReference: {fileID: 0}
     - target: {fileID: 4387678931267766, guid: 1818e1a170ef94c3aacee2ba50057521, type: 3}
       propertyPath: m_LocalScale.y
-      value: 6.779
+      value: 260.36514
       objectReference: {fileID: 0}
     - target: {fileID: 4387678931267766, guid: 1818e1a170ef94c3aacee2ba50057521, type: 3}
       propertyPath: m_LocalScale.z
-      value: 6.779
+      value: 260.36514
       objectReference: {fileID: 0}
     - target: {fileID: 4387678931267766, guid: 1818e1a170ef94c3aacee2ba50057521, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2197,27 +2187,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8adadad2b117d5d4c9efe8d9732c200b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetMass: 5.68e+26
+  planetName: Planet
+  planetMass: 5.68000005560064e+26
   planetDiameter: 116460000
+  kepler:
+    a: 0
+    e: 0
+    iDeg: 0
+    OmegaDeg: 0
+    omegaDeg: 0
+    M0Deg: 0
+    epochSeconds: 0
   rotationDirection: 0
-  rotationPeriodHours: 10.7
+  rotationPeriodHours: 10.699999809265137
   rotationSpeedMultiplier: 1000
-  rotationObliquity: 26.73
-  precessionRate: 0.01
-  precessionOffset: 0
-  rotationAxis: {x: 0, y: 1, z: 0}
-  keplerSemiMajorAxis: 1427000000000
-  keplerEccentricity: 0.0541506
-  keplerInclinationDeg: 2.48446
-  keplerLongAscNodeDeg: 2.48446
-  keplerArgPeriapsisDeg: 339.392
-  keplerMeanAnomalyDeg: 317.02
-  keplerEpochSeconds: 0
-  timeScale: 100000
+  rotationObliquityDeg: 23.44
+  enableSpin: 1
   kDistance: 5000
   alphaDistance: 0.000000001
-  betaRadius: 0.1
-  gammaRadius: 0.5
 --- !u!120 &1470375756
 LineRenderer:
   serializedVersion: 2
@@ -2332,22 +2319,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1470375749}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sunTransform: {fileID: 1921143280}
-  semiMajorAxis: 1427000000000
-  eccentricity: 0.0541506
-  inclinationDeg: 2.48446
-  longAscNodeDeg: 2.48446
-  argPeriapsisDeg: 339.392
-  resolution: 500
-  orbitColor: {r: 1, g: 1, b: 1, a: 1}
-  lineWidth: 50
-  kDistance: 5000
-  alphaDistance: 0.000000001
+  targetPlanet: {fileID: 1470375753}
+  segments: 1000
+  lineWidthStart: 100
+  lineWidthEnd: 100
+  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  updateEveryFrame: 0
 --- !u!1 &1529225852 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1733945558841920, guid: 300f80108a63f48618cb4a1c8b8c1e86, type: 3}
@@ -2370,27 +2352,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8adadad2b117d5d4c9efe8d9732c200b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetMass: 5.972e+24
+  planetName: Planet
+  planetMass: 5.972000231429685e+24
   planetDiameter: 12756000
+  kepler:
+    a: 0
+    e: 0
+    iDeg: 0
+    OmegaDeg: 0
+    omegaDeg: 0
+    M0Deg: 0
+    epochSeconds: 0
   rotationDirection: 0
   rotationPeriodHours: 24
   rotationSpeedMultiplier: 1000
-  rotationObliquity: 23.44
-  precessionRate: 0.01
-  precessionOffset: 0
-  rotationAxis: {x: 0, y: 1, z: 0}
-  keplerSemiMajorAxis: 149597870700
-  keplerEccentricity: 0.01671022
-  keplerInclinationDeg: 0.00005
-  keplerLongAscNodeDeg: -11.26064
-  keplerArgPeriapsisDeg: 102.94719
-  keplerMeanAnomalyDeg: 100.46435
-  keplerEpochSeconds: 0
-  timeScale: 100000
+  rotationObliquityDeg: 23.44
+  enableSpin: 1
   kDistance: 5000
   alphaDistance: 0.000000001
-  betaRadius: 0.1
-  gammaRadius: 0.5
 --- !u!120 &1529225859
 LineRenderer:
   serializedVersion: 2
@@ -2505,22 +2484,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1529225852}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sunTransform: {fileID: 1921143280}
-  semiMajorAxis: 149597870700
-  eccentricity: 0.0167
-  inclinationDeg: 0.00005
-  longAscNodeDeg: -11.26064
-  argPeriapsisDeg: 102.94719
-  resolution: 500
-  orbitColor: {r: 1, g: 1, b: 1, a: 1}
-  lineWidth: 50
-  kDistance: 5000
-  alphaDistance: 0.000000001
+  targetPlanet: {fileID: 1529225856}
+  segments: 1000
+  lineWidthStart: 100
+  lineWidthEnd: 100
+  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  updateEveryFrame: 0
 --- !u!1001 &1529562006
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2539,15 +2513,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4431810912100570, guid: 5d1442ad8c11442988e0eca5d8af73f0, type: 3}
       propertyPath: m_LocalScale.x
-      value: 49.528
+      value: 701.74066
       objectReference: {fileID: 0}
     - target: {fileID: 4431810912100570, guid: 5d1442ad8c11442988e0eca5d8af73f0, type: 3}
       propertyPath: m_LocalScale.y
-      value: 49.528
+      value: 701.74066
       objectReference: {fileID: 0}
     - target: {fileID: 4431810912100570, guid: 5d1442ad8c11442988e0eca5d8af73f0, type: 3}
       propertyPath: m_LocalScale.z
-      value: 49.528
+      value: 701.74066
       objectReference: {fileID: 0}
     - target: {fileID: 4431810912100570, guid: 5d1442ad8c11442988e0eca5d8af73f0, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2621,15 +2595,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4024914263291546, guid: 835acc1a9ebe24c0fa3854c99346f9cd, type: 3}
       propertyPath: m_LocalScale.x
-      value: 12.104
+      value: 347.90805
       objectReference: {fileID: 0}
     - target: {fileID: 4024914263291546, guid: 835acc1a9ebe24c0fa3854c99346f9cd, type: 3}
       propertyPath: m_LocalScale.y
-      value: 12.104
+      value: 347.90805
       objectReference: {fileID: 0}
     - target: {fileID: 4024914263291546, guid: 835acc1a9ebe24c0fa3854c99346f9cd, type: 3}
       propertyPath: m_LocalScale.z
-      value: 12.104
+      value: 347.90805
       objectReference: {fileID: 0}
     - target: {fileID: 4024914263291546, guid: 835acc1a9ebe24c0fa3854c99346f9cd, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2788,7 +2762,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 10000
+  far clip plane: 100000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -2815,13 +2789,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1572860260}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.58069175, y: -0.0047370475, z: 0.0036371353, w: 0.8141017}
-  m_LocalPosition: {x: 1045, y: 71306, z: -21501}
+  m_LocalRotation: {x: 0.32456443, y: 0.07418455, z: -0.025543781, w: 0.9426039}
+  m_LocalPosition: {x: -8400, y: 21427, z: -48178}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 71, y: -0.614, z: 0.074}
+  m_LocalEulerAnglesHint: {x: 38, y: 9, z: 0}
 --- !u!1 &1650083338 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3548356298615962880, guid: 5f776740c447e45afb25edbca842de92, type: 3}
@@ -2849,27 +2823,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8adadad2b117d5d4c9efe8d9732c200b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  planetMass: 5.972e+24
+  planetName: Planet
+  planetMass: 5.972000231429685e+24
   planetDiameter: 2377000
+  kepler:
+    a: 0
+    e: 0
+    iDeg: 0
+    OmegaDeg: 0
+    omegaDeg: 0
+    M0Deg: 0
+    epochSeconds: 0
   rotationDirection: 1
   rotationPeriodHours: 153
   rotationSpeedMultiplier: 1000
-  rotationObliquity: 23.5
-  precessionRate: 23.5
-  precessionOffset: 23.5
-  rotationAxis: {x: 0, y: 1, z: 0}
-  keplerSemiMajorAxis: 149597870700
-  keplerEccentricity: 0.0167
-  keplerInclinationDeg: 0
-  keplerLongAscNodeDeg: 0
-  keplerArgPeriapsisDeg: 0
-  keplerMeanAnomalyDeg: 0
-  keplerEpochSeconds: 0
-  timeScale: 100000
+  rotationObliquityDeg: 23.44
+  enableSpin: 1
   kDistance: 7500
   alphaDistance: 0.000000001
-  betaRadius: 0.1
-  gammaRadius: 0.5
 --- !u!1001 &1921143279
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2996,10 +2967,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b1bee9c133dad5449c47b1a34424194, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starMass: 1.989e+30
+  starMass: 1.989000014062259e+30
   starDiameter: 1.3927e+9
-  betaRadius: 0.1
-  gammaRadius: 0.5
+  visualRadius: 1
+  debugInfo: 0
 --- !u!1 &1933235862
 GameObject:
   m_ObjectHideFlags: 0
@@ -3009,6 +2980,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1933235863}
+  - component: {fileID: 1933235864}
+  - component: {fileID: 1933235865}
   m_Layer: 0
   m_Name: Planets
   m_TagString: Untagged
@@ -3041,6 +3014,32 @@ Transform:
   - {fileID: 713584125}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1933235864
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933235862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fd9ec5a9722fff45b0e0f98d6788d16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FilePath: Assets/Ressources/PlanetsData.csv
+--- !u!114 &1933235865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1933235862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00377f86f128dfd4bac0a69073b5b27b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TimeScale: 100000
 --- !u!1 &2044020426
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,165 +1,92 @@
-﻿using UnityEngine;
-using System;
+﻿using System;
+using UnityEngine;
 
-/// <summary>
-/// OrbitDrawer: Generates and visualizes the orbital path of a planet
-/// using Keplerian elements. Compatible with the logarithmic distance scaling
-/// used in PlanetControl. The orbit is displayed via a LineRenderer.
-/// </summary>
 [RequireComponent(typeof(LineRenderer))]
 public class OrbitDrawer : MonoBehaviour
 {
-    #region Serialized Fields
+    [Header("Target Planet")]
+    [Tooltip("Le PlanetControl dont on dessine l'orbite.")]
+    public PlanetControl targetPlanet;
 
-    [Header("References")]
-    [Tooltip("Reference to the Sun transform (center of the system).")]
-    [SerializeField] private Transform sunTransform;
+    [Header("Orbit Settings")]
+    [Tooltip("Nombre de segments pour dessiner l'orbite.")]
+    [Range(10, 1000)]
+    public int segments = 360;
 
-    [Header("Keplerian Elements (SI Units)")]
-    [Tooltip("Semi-major axis (m).")]
-    [SerializeField] private double semiMajorAxis = 1.495978707e11; // 1 AU
-    [Tooltip("Orbital eccentricity (dimensionless).")]
-    [SerializeField] private double eccentricity = 0.0167;
-    [Tooltip("Orbital inclination (degrees).")]
-    [SerializeField] private double inclinationDeg = 0.0;
-    [Tooltip("Longitude of ascending node (degrees).")]
-    [SerializeField] private double longAscNodeDeg = 0.0;
-    [Tooltip("Argument of periapsis (degrees).")]
-    [SerializeField] private double argPeriapsisDeg = 0.0;
+    [Tooltip("Largeur de la ligne au début de l'orbite.")]
+    public float lineWidthStart = 0.05f;
 
-    [Header("Drawing Settings")]
-    [Tooltip("Number of points used to draw the orbit.")]
-    [SerializeField] private int resolution = 500;
-    [Tooltip("Color of the orbit line.")]
-    [SerializeField] private Color orbitColor = Color.white;
-    [Tooltip("Width of the orbit line in Unity units.")]
-    [SerializeField] private float lineWidth = 0.02f;
+    [Tooltip("Largeur de la ligne à la fin de l'orbite.")]
+    public float lineWidthEnd = 0.05f;
 
-    [Header("Scaling Settings")]
-    [Tooltip("Distance scaling constants. Must match PlanetControl.")]
-    [SerializeField] private float kDistance = 2000f;
-    [SerializeField] private float alphaDistance = 1e-9f;
+    [Tooltip("Couleur de la ligne.")]
+    public Color lineColor = Color.white;
 
-    #endregion
-
-    #region Private Fields
+    [Tooltip("Mettre à jour l'orbite en temps réel (peut impacter les performances).")]
+    public bool updateEveryFrame = false;
 
     private LineRenderer lineRenderer;
-    private const double MU_SUN = 1.32712440018e20; // Gravitational parameter of the Sun (m^3/s^2)
-
-    #endregion
-
-    #region Unity Callbacks
+    private float kDistance;
+    private float alphaDistance;
 
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
-        SetupLineRenderer();
+        lineRenderer.positionCount = segments + 1;
+
+        // Appliquer largeur et couleur
+        lineRenderer.startWidth = lineWidthStart;
+        lineRenderer.endWidth = lineWidthEnd;
+        lineRenderer.material = new Material(Shader.Find("Unlit/Color"));
+        lineRenderer.material.color = lineColor;
     }
 
     private void Start()
     {
-        if (sunTransform == null)
+        if (targetPlanet == null)
         {
-            Debug.LogError("[OrbitDrawer] Missing reference to Sun transform.");
+            Debug.LogError("[OrbitDrawer] Aucun PlanetControl assigné !");
             return;
         }
+
+        // Récupère kDistance et alphaDistance depuis PlanetControl
+        kDistance = targetPlanet.GetKDistance();
+        alphaDistance = targetPlanet.GetAlphaDistance();
 
         DrawOrbit();
     }
 
-    #endregion
-
-    #region LineRenderer Setup
-
-    /// <summary>
-    /// Configures the LineRenderer visual properties.
-    /// </summary>
-    private void SetupLineRenderer()
+    private void Update()
     {
-        lineRenderer.useWorldSpace = true;
-        lineRenderer.loop = true;
-        lineRenderer.widthMultiplier = lineWidth;
-
-        // Simple unlit material for stable color rendering
-        lineRenderer.material = new Material(Shader.Find("Unlit/Color"));
-        lineRenderer.material.color = orbitColor;
+        if (updateEveryFrame)
+            DrawOrbit();
     }
 
-    #endregion
-
-    #region Orbit Drawing
-
-    /// <summary>
-    /// Generates and draws the orbital path using the planet's Keplerian parameters.
-    /// </summary>
-    private void DrawOrbit()
+    public void DrawOrbit()
     {
-        Vector3[] points = new Vector3[resolution];
+        if (targetPlanet == null) return;
 
-        // Convert angles to radians
-        double iRad = inclinationDeg * Mathf.Deg2Rad;
-        double OmegaRad = longAscNodeDeg * Mathf.Deg2Rad;
-        double omegaRad = argPeriapsisDeg * Mathf.Deg2Rad;
+        var kepler = targetPlanet.GetKeplerElements();
+        Vector3 sunPos = GameObject.FindGameObjectWithTag("Sun")?.transform.position ?? Vector3.zero;
 
-        for (int j = 0; j < resolution; j++)
+        for (int i = 0; i <= segments; i++)
         {
-            double trueAnomaly = (j / (double)(resolution - 1)) * 2.0 * Math.PI;
+            // Calcul de l'anomalie moyenne sur un tour complet
+            double M = 2.0 * Math.PI * i / segments;
+            double posSeconds = M * Math.Sqrt(Math.Pow(kepler.a, 3) / PhysicsConstants.MuSun); // approximation
 
-            // Distance from focus (Sun) at current true anomaly
-            double r = semiMajorAxis * (1 - eccentricity * eccentricity) /
-                       (1 + eccentricity * Math.Cos(trueAnomaly));
+            Vector3 posMeters = KeplerUtil.OrbitalElementsToPositionMeters(
+                kepler.a, kepler.e, kepler.iDeg * Mathf.Deg2Rad,
+                kepler.OmegaDeg * Mathf.Deg2Rad,
+                kepler.omegaDeg * Mathf.Deg2Rad,
+                kepler.M0Deg * Mathf.Deg2Rad,
+                posSeconds, PhysicsConstants.MuSun
+            );
 
-            // Orbital plane coordinates
-            double xOrb = r * Math.Cos(trueAnomaly);
-            double yOrb = r * Math.Sin(trueAnomaly);
-            double zOrb = 0;
+            float scaledDistance = kDistance * Mathf.Log(1f + alphaDistance * posMeters.magnitude);
+            Vector3 dir = posMeters.normalized;
 
-            // Rotation matrices: Rz(Omega) * Rx(i) * Rz(omega)
-            double cosO = Math.Cos(OmegaRad);
-            double sinO = Math.Sin(OmegaRad);
-            double cosi = Math.Cos(iRad);
-            double sini = Math.Sin(iRad);
-            double cosw = Math.Cos(omegaRad);
-            double sinw = Math.Sin(omegaRad);
-
-            // Step 1: rotation by ω (argument of periapsis)
-            double x1 = cosw * xOrb - sinw * yOrb;
-            double y1 = sinw * xOrb + cosw * yOrb;
-            double z1 = zOrb;
-
-            // Step 2: rotation by i (inclination)
-            double x2 = x1;
-            double y2 = cosi * y1 - sini * z1;
-            double z2 = sini * y1 + cosi * z1;
-
-            // Step 3: rotation by Ω (longitude of ascending node)
-            double x = cosO * x2 - sinO * y2;
-            double y = sinO * x2 + cosO * y2;
-            double z = z2;
-
-            // Apply distance scaling (logarithmic, consistent with PlanetControl)
-            float scaledDist = ScaleDistance((float)Math.Sqrt(x * x + y * y + z * z));
-            Vector3 dir = new Vector3((float)x, (float)z, (float)y).normalized;
-
-            points[j] = sunTransform.position + dir * scaledDist;
+            lineRenderer.SetPosition(i, sunPos + dir * scaledDistance);
         }
-
-        lineRenderer.positionCount = resolution;
-        lineRenderer.SetPositions(points);
     }
-
-    #endregion
-
-    #region Scaling Methods
-
-    /// <summary>
-    /// Applies the same logarithmic distance scaling used in PlanetControl.
-    /// </summary>
-    private float ScaleDistance(float realDistance)
-    {
-        return kDistance * Mathf.Log(1f + alphaDistance * realDistance);
-    }
-
-    #endregion
 }
