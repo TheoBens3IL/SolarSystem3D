@@ -355,7 +355,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 89667507}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
@@ -520,7 +520,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 256964909}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
@@ -557,12 +557,12 @@ MonoBehaviour:
   planetMass: 3.300000016876774e+23
   planetDiameter: 4879000
   kepler:
-    a: 0
-    e: 0
-    iDeg: 0
-    OmegaDeg: 0
-    omegaDeg: 0
-    M0Deg: 0
+    a: 57870000000
+    e: 0.20563593
+    iDeg: 7.00498
+    OmegaDeg: 48.33077
+    omegaDeg: 29.12703
+    M0Deg: 174.79253
     epochSeconds: 0
   rotationDirection: 0
   rotationPeriodHours: 1407.5
@@ -1173,7 +1173,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 411797012}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
@@ -1907,7 +1907,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1382520376}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
@@ -2072,7 +2072,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1403106873}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
@@ -2319,7 +2319,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1470375749}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
@@ -2484,7 +2484,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1529225852}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 

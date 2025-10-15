@@ -206,10 +206,17 @@ public class PlanetControl : MonoBehaviour
 
     #region Public API
 
+    // --- Event triggered when Kepler elements are updated ---
+    public event Action<PlanetControl> OnKeplerElementsUpdated;
+
     public void SetKeplerElements(KeplerElements elements)
     {
         kepler = elements;
+
+        // ✅ Notifie les abonnés (comme OrbitDrawer)
+        OnKeplerElementsUpdated?.Invoke(this);
     }
+
 
     public KeplerElements GetKeplerElements() => kepler;
 

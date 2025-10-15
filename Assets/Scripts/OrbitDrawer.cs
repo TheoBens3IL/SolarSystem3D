@@ -9,32 +9,23 @@ public class OrbitDrawer : MonoBehaviour
     public PlanetControl targetPlanet;
 
     [Header("Orbit Settings")]
-    [Tooltip("Nombre de segments pour dessiner l'orbite.")]
-    [Range(10, 1000)]
-    public int segments = 360;
-
-    [Tooltip("Largeur de la ligne au début de l'orbite.")]
+    [Range(10, 1000)] public int segments = 360;
     public float lineWidthStart = 0.05f;
-
-    [Tooltip("Largeur de la ligne à la fin de l'orbite.")]
     public float lineWidthEnd = 0.05f;
-
-    [Tooltip("Couleur de la ligne.")]
     public Color lineColor = Color.white;
-
-    [Tooltip("Mettre à jour l'orbite en temps réel (peut impacter les performances).")]
     public bool updateEveryFrame = false;
 
     private LineRenderer lineRenderer;
     private float kDistance;
     private float alphaDistance;
+    private bool orbitReady = false;
 
     private void Awake()
     {
         lineRenderer = GetComponent<LineRenderer>();
         lineRenderer.positionCount = segments + 1;
 
-        // Appliquer largeur et couleur
+        // Line style
         lineRenderer.startWidth = lineWidthStart;
         lineRenderer.endWidth = lineWidthEnd;
         lineRenderer.material = new Material(Shader.Find("Unlit/Color"));
@@ -49,16 +40,38 @@ public class OrbitDrawer : MonoBehaviour
             return;
         }
 
-        // Récupère kDistance et alphaDistance depuis PlanetControl
+        // 🔔 S’abonne à l’événement du PlanetControl
+        targetPlanet.OnKeplerElementsUpdated += OnPlanetKeplerReady;
+
+        // Si la planète est déjà initialisée (cas rare mais utile)
+        TryInitialize();
+    }
+
+    private void OnDestroy()
+    {
+        if (targetPlanet != null)
+            targetPlanet.OnKeplerElementsUpdated -= OnPlanetKeplerReady;
+    }
+
+    private void OnPlanetKeplerReady(PlanetControl planet)
+    {
+        TryInitialize();
+    }
+
+    private void TryInitialize()
+    {
+        if (targetPlanet == null) return;
+
         kDistance = targetPlanet.GetKDistance();
         alphaDistance = targetPlanet.GetAlphaDistance();
 
         DrawOrbit();
+        orbitReady = true;
     }
 
     private void Update()
     {
-        if (updateEveryFrame)
+        if (updateEveryFrame && orbitReady)
             DrawOrbit();
     }
 
@@ -71,9 +84,8 @@ public class OrbitDrawer : MonoBehaviour
 
         for (int i = 0; i <= segments; i++)
         {
-            // Calcul de l'anomalie moyenne sur un tour complet
             double M = 2.0 * Math.PI * i / segments;
-            double posSeconds = M * Math.Sqrt(Math.Pow(kepler.a, 3) / PhysicsConstants.MuSun); // approximation
+            double posSeconds = M * Math.Sqrt(Math.Pow(kepler.a, 3) / PhysicsConstants.MuSun);
 
             Vector3 posMeters = KeplerUtil.OrbitalElementsToPositionMeters(
                 kepler.a, kepler.e, kepler.iDeg * Mathf.Deg2Rad,
