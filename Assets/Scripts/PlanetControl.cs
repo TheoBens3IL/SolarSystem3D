@@ -118,9 +118,10 @@ public class PlanetControl : MonoBehaviour
         // rotate on own axis (visual)
         if (enableSpin)
             SpinOnAxis();
+        UpdateOrbitPosition();
     }
 
-    private void FixedUpdate()
+    private void UpdateOrbitPosition()
     {
         if (sunScript == null && GameObject.FindGameObjectWithTag("Sun") != null)
         {

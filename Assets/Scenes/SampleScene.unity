@@ -364,7 +364,7 @@ MonoBehaviour:
   segments: 1000
   lineWidthStart: 100
   lineWidthEnd: 100
-  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  lineColor: {r: 0.3254902, g: 0.18823531, b: 0.1137255, a: 1}
   updateEveryFrame: 0
 --- !u!1 &256964909 stripped
 GameObject:
@@ -529,7 +529,7 @@ MonoBehaviour:
   segments: 1000
   lineWidthStart: 100
   lineWidthEnd: 100
-  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  lineColor: {r: 0.45882356, g: 0.3803922, b: 0.20392159, a: 1}
   updateEveryFrame: 0
 --- !u!1 &281501559 stripped
 GameObject:
@@ -694,7 +694,7 @@ MonoBehaviour:
   segments: 1000
   lineWidthStart: 100
   lineWidthEnd: 100
-  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  lineColor: {r: 0.25490198, g: 0.18039216, b: 0.11764707, a: 1}
   updateEveryFrame: 0
 --- !u!1 &330585543
 GameObject:
@@ -757,7 +757,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 100000
+  far clip plane: 1000000
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -847,9 +847,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf4c0baa54d26240b9706172c6a6e54, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2000
+  moveSpeed: 10000
   mouseSensitivity: 2
-  scrollSpeed: 1000
+  scrollSpeed: 5000
 --- !u!114 &330585549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -866,6 +866,12 @@ MonoBehaviour:
   followSmoothSpeed: 10
   followOffset: {x: 0, y: 5, z: -10}
   keepCurrentOffsetOnSelect: 0
+  followMinDistance: 0.5
+  followMaxDistance: 2000
+  followRotateSpeed: 0.2
+  followZoomSpeed: 50
+  followMinVerticalAngle: 5
+  followMaxVerticalAngle: 175
 --- !u!1 &349169788
 GameObject:
   m_ObjectHideFlags: 0
@@ -1182,7 +1188,7 @@ MonoBehaviour:
   segments: 1000
   lineWidthStart: 100
   lineWidthEnd: 100
-  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  lineColor: {r: 0.29803923, g: 0.21960786, b: 0.21176472, a: 1}
   updateEveryFrame: 0
 --- !u!1001 &428232405
 PrefabInstance:
@@ -1916,7 +1922,7 @@ MonoBehaviour:
   segments: 1000
   lineWidthStart: 100
   lineWidthEnd: 100
-  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  lineColor: {r: 0.12941177, g: 0.227451, b: 0.50980395, a: 1}
   updateEveryFrame: 0
 --- !u!1 &1403106873 stripped
 GameObject:
@@ -2081,7 +2087,7 @@ MonoBehaviour:
   segments: 1000
   lineWidthStart: 100
   lineWidthEnd: 100
-  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  lineColor: {r: 0.29803923, g: 0.45882356, b: 0.5568628, a: 1}
   updateEveryFrame: 0
 --- !u!1001 &1408962027
 PrefabInstance:
@@ -2328,7 +2334,7 @@ MonoBehaviour:
   segments: 1000
   lineWidthStart: 100
   lineWidthEnd: 100
-  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  lineColor: {r: 0.3803922, g: 0.39607847, b: 0.36862746, a: 1}
   updateEveryFrame: 0
 --- !u!1 &1529225852 stripped
 GameObject:
@@ -2493,7 +2499,7 @@ MonoBehaviour:
   segments: 1000
   lineWidthStart: 100
   lineWidthEnd: 100
-  lineColor: {r: 1, g: 1, b: 1, a: 1}
+  lineColor: {r: 0.19215688, g: 0.3019608, b: 0.26666668, a: 1}
   updateEveryFrame: 0
 --- !u!1001 &1529562006
 PrefabInstance:
@@ -2851,15 +2857,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1229251971759408710, guid: 5f776740c447e45afb25edbca842de92, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1392.7
+      value: 11195.668
       objectReference: {fileID: 0}
     - target: {fileID: 1229251971759408710, guid: 5f776740c447e45afb25edbca842de92, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1392.7
+      value: 11195.668
       objectReference: {fileID: 0}
     - target: {fileID: 1229251971759408710, guid: 5f776740c447e45afb25edbca842de92, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1392.7
+      value: 11195.668
       objectReference: {fileID: 0}
     - target: {fileID: 1229251971759408710, guid: 5f776740c447e45afb25edbca842de92, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2969,7 +2975,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   starMass: 1.989000014062259e+30
   starDiameter: 1.3927e+9
-  visualRadius: 1
+  visualScaleMultiplier: 3
+  autoScale: 1
   debugInfo: 0
 --- !u!1 &1933235862
 GameObject:
