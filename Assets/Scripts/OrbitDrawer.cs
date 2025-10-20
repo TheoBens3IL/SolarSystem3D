@@ -1,104 +1,206 @@
-﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
 public class OrbitDrawer : MonoBehaviour
 {
-    [Header("Target Planet")]
-    [Tooltip("Le PlanetControl dont on dessine l'orbite.")]
-    public PlanetControl targetPlanet;
-
     [Header("Orbit Settings")]
-    [Range(10, 1000)] public int segments = 360;
-    public float lineWidthStart = 0.05f;
-    public float lineWidthEnd = 0.05f;
-    public Color lineColor = Color.white;
-    public bool updateEveryFrame = false;
+    public int orbitSegments = 100;
+    public float lineWidth = 0.1f;
+    public Color orbitColor = Color.white;
+    public Material orbitMaterial;
+    
+    [Header("Planet Reference")]
+    public PlanetControl planetControl;
+    
+    [Header("Debug")]
+    public bool showOrbit = true;
+    public bool updateOrbit = false;
 
     private LineRenderer lineRenderer;
-    private float kDistance;
-    private float alphaDistance;
-    private bool orbitReady = false;
+    private List<Vector3> orbitPoints = new List<Vector3>();
+    private bool orbitCalculated = false;
 
-    private void Awake()
+    void Start()
     {
-        lineRenderer = GetComponent<LineRenderer>();
-        lineRenderer.positionCount = segments + 1;
-
-        // Line style
-        lineRenderer.startWidth = lineWidthStart;
-        lineRenderer.endWidth = lineWidthEnd;
-        lineRenderer.material = new Material(Shader.Find("Unlit/Color"));
-        lineRenderer.material.color = lineColor;
+        InitializeLineRenderer();
+        
+        if (planetControl != null)
+        {
+            CalculateOrbit();
+        }
     }
 
-    private void Start()
+    void Update()
     {
-        if (targetPlanet == null)
+        if (updateOrbit && planetControl != null)
         {
-            Debug.LogError("[OrbitDrawer] Aucun PlanetControl assigné !");
+            CalculateOrbit();
+        }
+    }
+
+    private void InitializeLineRenderer()
+    {
+        lineRenderer = GetComponent<LineRenderer>();
+        
+        if (orbitMaterial != null)
+        {
+            lineRenderer.material = orbitMaterial;
+        }
+        else
+        {
+            // Create a simple material
+            Material mat = new Material(Shader.Find("Sprites/Default"));
+            mat.color = orbitColor;
+            lineRenderer.material = mat;
+        }
+        
+        lineRenderer.startWidth = lineWidth;
+        lineRenderer.endWidth = lineWidth;
+        lineRenderer.useWorldSpace = true;
+        lineRenderer.enabled = showOrbit;
+    }
+
+    public void CalculateOrbit()
+    {
+        if (planetControl == null || planetControl.planetData == null)
+        {
+            Debug.LogWarning("PlanetControl or planet data not assigned!");
             return;
         }
 
-        // 🔔 S’abonne à l’événement du PlanetControl
-        targetPlanet.OnKeplerElementsUpdated += OnPlanetKeplerReady;
+        orbitPoints.Clear();
+        PlanetData data = planetControl.planetData;
+        float distanceScale = planetControl.distanceScale;
 
-        // Si la planète est déjà initialisée (cas rare mais utile)
-        TryInitialize();
-    }
-
-    private void OnDestroy()
-    {
-        if (targetPlanet != null)
-            targetPlanet.OnKeplerElementsUpdated -= OnPlanetKeplerReady;
-    }
-
-    private void OnPlanetKeplerReady(PlanetControl planet)
-    {
-        TryInitialize();
-    }
-
-    private void TryInitialize()
-    {
-        if (targetPlanet == null) return;
-
-        kDistance = targetPlanet.GetKDistance();
-        alphaDistance = targetPlanet.GetAlphaDistance();
-
-        DrawOrbit();
-        orbitReady = true;
-    }
-
-    private void Update()
-    {
-        if (updateEveryFrame && orbitReady)
-            DrawOrbit();
-    }
-
-    public void DrawOrbit()
-    {
-        if (targetPlanet == null) return;
-
-        var kepler = targetPlanet.GetKeplerElements();
-        Vector3 sunPos = GameObject.FindGameObjectWithTag("Sun")?.transform.position ?? Vector3.zero;
-
-        for (int i = 0; i <= segments; i++)
+        // Calculate orbit points
+        for (int i = 0; i <= orbitSegments; i++)
         {
-            double M = 2.0 * Math.PI * i / segments;
-            double posSeconds = M * Math.Sqrt(Math.Pow(kepler.a, 3) / PhysicsConstants.MuSun);
+            float angle = (float)i / orbitSegments * 2f * Mathf.PI;
+            Vector3d orbitalPosition = CalculateOrbitalPosition(angle, data);
+            Vector3d worldPosition = TransformTo3DSpace(orbitalPosition, data);
+            Vector3 scaledPosition = (worldPosition * distanceScale).ToVector3();
+            
+            orbitPoints.Add(scaledPosition);
+        }
 
-            Vector3 posMeters = KeplerUtil.OrbitalElementsToPositionMeters(
-                kepler.a, kepler.e, kepler.iDeg * Mathf.Deg2Rad,
-                kepler.OmegaDeg * Mathf.Deg2Rad,
-                kepler.omegaDeg * Mathf.Deg2Rad,
-                kepler.M0Deg * Mathf.Deg2Rad,
-                posSeconds, PhysicsConstants.MuSun
-            );
+        // Update line renderer
+        lineRenderer.positionCount = orbitPoints.Count;
+        lineRenderer.SetPositions(orbitPoints.ToArray());
+        
+        orbitCalculated = true;
+    }
 
-            float scaledDistance = kDistance * Mathf.Log(1f + alphaDistance * posMeters.magnitude);
-            Vector3 dir = posMeters.normalized;
+    private Vector3d CalculateOrbitalPosition(float angle, PlanetData data)
+    {
+        double a = data.semiMajorAxis;
+        double e = data.eccentricity;
+        
+        // For elliptical orbits, we need to solve Kepler's equation
+        // For simplicity, we'll use a parametric approach
+        double cosAngle = Math.Cos(angle);
+        double sinAngle = Math.Sin(angle);
+        
+        // Parametric equations for ellipse
+        double x = a * (cosAngle - e);
+        double y = a * Math.Sqrt(1 - e * e) * sinAngle;
+        
+        return new Vector3d(x, y, 0);
+    }
 
-            lineRenderer.SetPosition(i, sunPos + dir * scaledDistance);
+    private Vector3d TransformTo3DSpace(Vector3d orbitalVector, PlanetData data)
+    {
+        // Convert orbital elements to rotation matrix
+        double i = PlanetData.DegreesToRadians(data.inclination);
+        double omega = PlanetData.DegreesToRadians(data.longitudeOfAscendingNode);
+        double w = PlanetData.DegreesToRadians(data.argumentOfPeriapsis);
+
+        // Rotation matrices
+        double cosOmega = Math.Cos(omega);
+        double sinOmega = Math.Sin(omega);
+        double cosI = Math.Cos(i);
+        double sinI = Math.Sin(i);
+        double cosW = Math.Cos(w);
+        double sinW = Math.Sin(w);
+
+        // Combined rotation matrix: R = Rz(Ω) * Rx(i) * Rz(ω)
+        double[,] R = new double[3, 3];
+        
+        R[0, 0] = cosOmega * cosW - sinOmega * cosI * sinW;
+        R[0, 1] = -cosOmega * sinW - sinOmega * cosI * cosW;
+        R[0, 2] = sinOmega * sinI;
+        
+        R[1, 0] = sinOmega * cosW + cosOmega * cosI * sinW;
+        R[1, 1] = -sinOmega * sinW + cosOmega * cosI * cosW;
+        R[1, 2] = -cosOmega * sinI;
+        
+        R[2, 0] = sinI * sinW;
+        R[2, 1] = sinI * cosW;
+        R[2, 2] = cosI;
+
+        // Apply rotation
+        double x = R[0, 0] * orbitalVector.x + R[0, 1] * orbitalVector.y + R[0, 2] * orbitalVector.z;
+        double y = R[1, 0] * orbitalVector.x + R[1, 1] * orbitalVector.y + R[1, 2] * orbitalVector.z;
+        double z = R[2, 0] * orbitalVector.x + R[2, 1] * orbitalVector.y + R[2, 2] * orbitalVector.z;
+
+        return new Vector3d(x, y, z);
+    }
+
+    public void SetOrbitColor(Color color)
+    {
+        orbitColor = color;
+        if (lineRenderer != null)
+        {
+            lineRenderer.material.color = color;
+        }
+    }
+
+    public void SetLineWidth(float width)
+    {
+        lineWidth = width;
+        if (lineRenderer != null)
+        {
+            lineRenderer.startWidth = width;
+            lineRenderer.endWidth = width;
+        }
+    }
+
+    public void SetOrbitSegments(int segments)
+    {
+        orbitSegments = segments;
+        if (orbitCalculated)
+        {
+            CalculateOrbit();
+        }
+    }
+
+    public void ToggleOrbit()
+    {
+        showOrbit = !showOrbit;
+        if (lineRenderer != null)
+        {
+            lineRenderer.enabled = showOrbit;
+        }
+    }
+
+    public void SetPlanetControl(PlanetControl planet)
+    {
+        planetControl = planet;
+        if (planet != null)
+        {
+            CalculateOrbit();
+        }
+    }
+
+    void OnDrawGizmos()
+    {
+        if (showOrbit && orbitPoints.Count > 0)
+        {
+            Gizmos.color = orbitColor;
+            for (int i = 0; i < orbitPoints.Count - 1; i++)
+            {
+                Gizmos.DrawLine(orbitPoints[i], orbitPoints[i + 1]);
+            }
         }
     }
 }
