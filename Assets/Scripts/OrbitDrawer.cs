@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(LineRenderer))]
@@ -98,12 +99,12 @@ public class OrbitDrawer : MonoBehaviour
         
         // For elliptical orbits, we need to solve Kepler's equation
         // For simplicity, we'll use a parametric approach
-        double cosAngle = Math.Cos(angle);
-        double sinAngle = Math.Sin(angle);
+        double cosAngle = System.Math.Cos(angle);
+        double sinAngle = System.Math.Sin(angle);
         
         // Parametric equations for ellipse
         double x = a * (cosAngle - e);
-        double y = a * Math.Sqrt(1 - e * e) * sinAngle;
+        double y = a * System.Math.Sqrt(1 - e * e) * sinAngle;
         
         return new Vector3d(x, y, 0);
     }
@@ -116,12 +117,12 @@ public class OrbitDrawer : MonoBehaviour
         double w = PlanetData.DegreesToRadians(data.argumentOfPeriapsis);
 
         // Rotation matrices
-        double cosOmega = Math.Cos(omega);
-        double sinOmega = Math.Sin(omega);
-        double cosI = Math.Cos(i);
-        double sinI = Math.Sin(i);
-        double cosW = Math.Cos(w);
-        double sinW = Math.Sin(w);
+        double cosOmega = System.Math.Cos(omega);
+        double sinOmega = System.Math.Sin(omega);
+        double cosI = System.Math.Cos(i);
+        double sinI = System.Math.Sin(i);
+        double cosW = System.Math.Cos(w);
+        double sinW = System.Math.Sin(w);
 
         // Combined rotation matrix: R = Rz(Ω) * Rx(i) * Rz(ω)
         double[,] R = new double[3, 3];

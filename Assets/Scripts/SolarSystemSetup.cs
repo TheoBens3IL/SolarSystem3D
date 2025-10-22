@@ -55,7 +55,7 @@ public class SolarSystemSetup : MonoBehaviour
         // Setup data loader
         if (dataLoader == null)
         {
-            dataLoader = FindObjectOfType<PlanetDataLoader>();
+            dataLoader = FindFirstObjectByType<PlanetDataLoader>();
             if (dataLoader == null)
             {
                 GameObject dataLoaderObj = new GameObject("PlanetDataLoader");
@@ -77,7 +77,7 @@ public class SolarSystemSetup : MonoBehaviour
         // Setup simulator
         if (simulator == null)
         {
-            simulator = FindObjectOfType<SolarSystemSimulator>();
+            simulator = FindFirstObjectByType<SolarSystemSimulator>();
             if (simulator == null)
             {
                 GameObject simulatorObj = new GameObject("SolarSystemSimulator");
@@ -102,7 +102,7 @@ public class SolarSystemSetup : MonoBehaviour
         // Setup orbit manager
         if (orbitManager == null)
         {
-            orbitManager = FindObjectOfType<OrbitManager>();
+            orbitManager = FindFirstObjectByType<OrbitManager>();
             if (orbitManager == null)
             {
                 GameObject orbitManagerObj = new GameObject("OrbitManager");

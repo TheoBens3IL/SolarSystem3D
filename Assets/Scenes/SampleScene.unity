@@ -224,23 +224,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetName: Planet
-  planetMass: 1.9000000297707774e+27
-  planetDiameter: 139820000
-  kepler:
-    a: 0
-    e: 0
-    iDeg: 0
-    OmegaDeg: 0
-    omegaDeg: 0
-    M0Deg: 0
-    epochSeconds: 0
-  rotationDirection: 0
-  rotationPeriodHours: 9.899999618530273
-  rotationSpeedMultiplier: 1000
-  rotationObliquityDeg: 23.44
-  enableSpin: 1
-  kDistance: 5000
-  alphaDistance: 0.000000001
+  planetData:
+    name: 
+    mass: 0
+    diameter: 0
+    semiMajorAxis: 0
+    eccentricity: 0
+    inclination: 0
+    longitudeOfAscendingNode: 0
+    argumentOfPeriapsis: 0
+    meanAnomalyAtEpoch: 0
+    epoch: 0
+    distance: 0
+    alpha: 0
+    beta: 0
+    gamma: 0
+    rotationPeriod: 0
+    rotationSpeedMultiplier: 0
+    rotationObliquity: 0
+    orbitalPeriod: 0
+    meanMotion: 0
+    gravitationalParameter: 0
+  distanceScale: 0.000000001
+  sizeScale: 0.000001
+  timeScale: 1
+  enableRotation: 1
+  enableOrbit: 1
+  showDebugInfo: 0
 --- !u!120 &89667514
 LineRenderer:
   serializedVersion: 2
@@ -262,6 +272,8 @@ LineRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -283,6 +295,7 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -360,12 +373,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPlanet: {fileID: 89667511}
-  segments: 1000
-  lineWidthStart: 100
-  lineWidthEnd: 100
-  lineColor: {r: 0.3254902, g: 0.18823531, b: 0.1137255, a: 1}
-  updateEveryFrame: 0
+  orbitSegments: 100
+  lineWidth: 0.1
+  orbitColor: {r: 1, g: 1, b: 1, a: 1}
+  orbitMaterial: {fileID: 0}
+  planetControl: {fileID: 0}
+  showOrbit: 1
+  updateOrbit: 0
 --- !u!1 &256964909 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1647581975099426, guid: 835acc1a9ebe24c0fa3854c99346f9cd, type: 3}
@@ -389,23 +403,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetName: Planet
-  planetMass: 4.869999810916809e+24
-  planetDiameter: 12104000
-  kepler:
-    a: 0
-    e: 0
-    iDeg: 0
-    OmegaDeg: 0
-    omegaDeg: 0
-    M0Deg: 0
-    epochSeconds: 0
-  rotationDirection: 1
-  rotationPeriodHours: 5832
-  rotationSpeedMultiplier: 1000
-  rotationObliquityDeg: 23.44
-  enableSpin: 1
-  kDistance: 5000
-  alphaDistance: 0.000000001
+  planetData:
+    name: 
+    mass: 0
+    diameter: 0
+    semiMajorAxis: 0
+    eccentricity: 0
+    inclination: 0
+    longitudeOfAscendingNode: 0
+    argumentOfPeriapsis: 0
+    meanAnomalyAtEpoch: 0
+    epoch: 0
+    distance: 0
+    alpha: 0
+    beta: 0
+    gamma: 0
+    rotationPeriod: 0
+    rotationSpeedMultiplier: 0
+    rotationObliquity: 0
+    orbitalPeriod: 0
+    meanMotion: 0
+    gravitationalParameter: 0
+  distanceScale: 0.000000001
+  sizeScale: 0.000001
+  timeScale: 1
+  enableRotation: 1
+  enableOrbit: 1
+  showDebugInfo: 0
 --- !u!120 &256964916
 LineRenderer:
   serializedVersion: 2
@@ -427,6 +451,8 @@ LineRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -448,6 +474,7 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -525,12 +552,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPlanet: {fileID: 256964913}
-  segments: 1000
-  lineWidthStart: 100
-  lineWidthEnd: 100
-  lineColor: {r: 0.45882356, g: 0.3803922, b: 0.20392159, a: 1}
-  updateEveryFrame: 0
+  orbitSegments: 100
+  lineWidth: 0.1
+  orbitColor: {r: 1, g: 1, b: 1, a: 1}
+  orbitMaterial: {fileID: 0}
+  planetControl: {fileID: 0}
+  showOrbit: 1
+  updateOrbit: 0
 --- !u!1 &281501559 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1856687845478954, guid: ab152f61198d54532ae39108e616ff59, type: 3}
@@ -554,23 +582,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetName: Planet
-  planetMass: 3.300000016876774e+23
-  planetDiameter: 4879000
-  kepler:
-    a: 57870000000
-    e: 0.20563593
-    iDeg: 7.00498
-    OmegaDeg: 48.33077
-    omegaDeg: 29.12703
-    M0Deg: 174.79253
-    epochSeconds: 0
-  rotationDirection: 0
-  rotationPeriodHours: 1407.5
-  rotationSpeedMultiplier: 1000
-  rotationObliquityDeg: 0.03
-  enableSpin: 1
-  kDistance: 5000
-  alphaDistance: 0.000000001
+  planetData:
+    name: 
+    mass: 0
+    diameter: 0
+    semiMajorAxis: 0
+    eccentricity: 0
+    inclination: 0
+    longitudeOfAscendingNode: 0
+    argumentOfPeriapsis: 0
+    meanAnomalyAtEpoch: 0
+    epoch: 0
+    distance: 0
+    alpha: 0
+    beta: 0
+    gamma: 0
+    rotationPeriod: 0
+    rotationSpeedMultiplier: 0
+    rotationObliquity: 0
+    orbitalPeriod: 0
+    meanMotion: 0
+    gravitationalParameter: 0
+  distanceScale: 0.000000001
+  sizeScale: 0.000001
+  timeScale: 1
+  enableRotation: 1
+  enableOrbit: 1
+  showDebugInfo: 0
 --- !u!120 &281501566
 LineRenderer:
   serializedVersion: 2
@@ -592,6 +630,8 @@ LineRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -613,6 +653,7 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -690,12 +731,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPlanet: {fileID: 281501563}
-  segments: 1000
-  lineWidthStart: 100
-  lineWidthEnd: 100
-  lineColor: {r: 0.25490198, g: 0.18039216, b: 0.11764707, a: 1}
-  updateEveryFrame: 0
+  orbitSegments: 100
+  lineWidth: 0.1
+  orbitColor: {r: 1, g: 1, b: 1, a: 1}
+  orbitMaterial: {fileID: 0}
+  planetControl: {fileID: 0}
+  showOrbit: 1
+  updateOrbit: 0
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -827,7 +869,6 @@ MonoBehaviour:
   m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
-  m_Version: 2
   m_TaaSettings:
     m_Quality: 3
     m_FrameInfluence: 0.1
@@ -835,6 +876,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!114 &330585548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1014,17 +1056,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 3
   m_UsePipelineSettings: 1
   m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_RenderingLayers: 1
   m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_ShadowRenderingLayers: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
+  m_RenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_ShadowRenderingLayersMask:
+    serializedVersion: 0
+    m_Bits: 1
+  m_Version: 4
+  m_LightLayerMask: 1
+  m_ShadowLayerMask: 1
+  m_RenderingLayers: 1
+  m_ShadowRenderingLayers: 1
 --- !u!1 &411797012 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1288793558353234, guid: 1818e1a170ef94c3aacee2ba50057521, type: 3}
@@ -1048,23 +1096,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetName: Planet
-  planetMass: 6.420000163846805e+23
-  planetDiameter: 6779000
-  kepler:
-    a: 0
-    e: 0
-    iDeg: 0
-    OmegaDeg: 0
-    omegaDeg: 0
-    M0Deg: 0
-    epochSeconds: 0
-  rotationDirection: 0
-  rotationPeriodHours: 24.600000381469727
-  rotationSpeedMultiplier: 1000
-  rotationObliquityDeg: 23.44
-  enableSpin: 1
-  kDistance: 5000
-  alphaDistance: 0.000000001
+  planetData:
+    name: 
+    mass: 0
+    diameter: 0
+    semiMajorAxis: 0
+    eccentricity: 0
+    inclination: 0
+    longitudeOfAscendingNode: 0
+    argumentOfPeriapsis: 0
+    meanAnomalyAtEpoch: 0
+    epoch: 0
+    distance: 0
+    alpha: 0
+    beta: 0
+    gamma: 0
+    rotationPeriod: 0
+    rotationSpeedMultiplier: 0
+    rotationObliquity: 0
+    orbitalPeriod: 0
+    meanMotion: 0
+    gravitationalParameter: 0
+  distanceScale: 0.000000001
+  sizeScale: 0.000001
+  timeScale: 1
+  enableRotation: 1
+  enableOrbit: 1
+  showDebugInfo: 0
 --- !u!120 &411797019
 LineRenderer:
   serializedVersion: 2
@@ -1086,6 +1144,8 @@ LineRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1107,6 +1167,7 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -1184,12 +1245,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPlanet: {fileID: 411797016}
-  segments: 1000
-  lineWidthStart: 100
-  lineWidthEnd: 100
-  lineColor: {r: 0.29803923, g: 0.21960786, b: 0.21176472, a: 1}
-  updateEveryFrame: 0
+  orbitSegments: 100
+  lineWidth: 0.1
+  orbitColor: {r: 1, g: 1, b: 1, a: 1}
+  orbitMaterial: {fileID: 0}
+  planetControl: {fileID: 0}
+  showOrbit: 1
+  updateOrbit: 0
 --- !u!1001 &428232405
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1599,6 +1661,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4693579709242440, guid: f9a741bb8762344c6a2a9cb4217ef728, type: 3}
   m_PrefabInstance: {fileID: 713584124}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &801943627
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 801943628}
+  m_Layer: 0
+  m_Name: SolarSystemSetup
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &801943628
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 801943627}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6029.9883, y: 836.33203, z: -9395.89}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -1666,23 +1759,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetName: Planet
-  planetMass: 7.34999979193829e+22
-  planetDiameter: 3475000
-  kepler:
-    a: 0
-    e: 0
-    iDeg: 0
-    OmegaDeg: 0
-    omegaDeg: 0
-    M0Deg: 0
-    epochSeconds: 0
-  rotationDirection: 0
-  rotationPeriodHours: 24
-  rotationSpeedMultiplier: 1000
-  rotationObliquityDeg: 23.44
-  enableSpin: 1
-  kDistance: 20
-  alphaDistance: 0.000000001
+  planetData:
+    name: 
+    mass: 0
+    diameter: 0
+    semiMajorAxis: 0
+    eccentricity: 0
+    inclination: 0
+    longitudeOfAscendingNode: 0
+    argumentOfPeriapsis: 0
+    meanAnomalyAtEpoch: 0
+    epoch: 0
+    distance: 0
+    alpha: 0
+    beta: 0
+    gamma: 0
+    rotationPeriod: 0
+    rotationSpeedMultiplier: 0
+    rotationObliquity: 0
+    orbitalPeriod: 0
+    meanMotion: 0
+    gravitationalParameter: 0
+  distanceScale: 0.000000001
+  sizeScale: 0.000001
+  timeScale: 1
+  enableRotation: 1
+  enableOrbit: 1
+  showDebugInfo: 0
 --- !u!1001 &1204011801
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1782,23 +1885,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetName: Planet
-  planetMass: 1.0199999853023588e+26
-  planetDiameter: 49244000
-  kepler:
-    a: 0
-    e: 0
-    iDeg: 0
-    OmegaDeg: 0
-    omegaDeg: 0
-    M0Deg: 0
-    epochSeconds: 0
-  rotationDirection: 0
-  rotationPeriodHours: 16.100000381469727
-  rotationSpeedMultiplier: 1000
-  rotationObliquityDeg: 23.44
-  enableSpin: 1
-  kDistance: 5000
-  alphaDistance: 0.000000001
+  planetData:
+    name: 
+    mass: 0
+    diameter: 0
+    semiMajorAxis: 0
+    eccentricity: 0
+    inclination: 0
+    longitudeOfAscendingNode: 0
+    argumentOfPeriapsis: 0
+    meanAnomalyAtEpoch: 0
+    epoch: 0
+    distance: 0
+    alpha: 0
+    beta: 0
+    gamma: 0
+    rotationPeriod: 0
+    rotationSpeedMultiplier: 0
+    rotationObliquity: 0
+    orbitalPeriod: 0
+    meanMotion: 0
+    gravitationalParameter: 0
+  distanceScale: 0.000000001
+  sizeScale: 0.000001
+  timeScale: 1
+  enableRotation: 1
+  enableOrbit: 1
+  showDebugInfo: 0
 --- !u!120 &1382520383
 LineRenderer:
   serializedVersion: 2
@@ -1820,6 +1933,8 @@ LineRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1841,6 +1956,7 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -1918,12 +2034,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPlanet: {fileID: 1382520380}
-  segments: 1000
-  lineWidthStart: 100
-  lineWidthEnd: 100
-  lineColor: {r: 0.12941177, g: 0.227451, b: 0.50980395, a: 1}
-  updateEveryFrame: 0
+  orbitSegments: 100
+  lineWidth: 0.1
+  orbitColor: {r: 1, g: 1, b: 1, a: 1}
+  orbitMaterial: {fileID: 0}
+  planetControl: {fileID: 0}
+  showOrbit: 1
+  updateOrbit: 0
 --- !u!1 &1403106873 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1014736895960144, guid: c91342f6e3afc48fd958056404ead345, type: 3}
@@ -1947,23 +2064,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetName: Planet
-  planetMass: 8.680000131733569e+25
-  planetDiameter: 50724000
-  kepler:
-    a: 0
-    e: 0
-    iDeg: 0
-    OmegaDeg: 0
-    omegaDeg: 0
-    M0Deg: 0
-    epochSeconds: 0
-  rotationDirection: 1
-  rotationPeriodHours: 17.200000762939453
-  rotationSpeedMultiplier: 1000
-  rotationObliquityDeg: 23.44
-  enableSpin: 1
-  kDistance: 5000
-  alphaDistance: 0.000000001
+  planetData:
+    name: 
+    mass: 0
+    diameter: 0
+    semiMajorAxis: 0
+    eccentricity: 0
+    inclination: 0
+    longitudeOfAscendingNode: 0
+    argumentOfPeriapsis: 0
+    meanAnomalyAtEpoch: 0
+    epoch: 0
+    distance: 0
+    alpha: 0
+    beta: 0
+    gamma: 0
+    rotationPeriod: 0
+    rotationSpeedMultiplier: 0
+    rotationObliquity: 0
+    orbitalPeriod: 0
+    meanMotion: 0
+    gravitationalParameter: 0
+  distanceScale: 0.000000001
+  sizeScale: 0.000001
+  timeScale: 1
+  enableRotation: 1
+  enableOrbit: 1
+  showDebugInfo: 0
 --- !u!120 &1403106880
 LineRenderer:
   serializedVersion: 2
@@ -1985,6 +2112,8 @@ LineRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2006,6 +2135,7 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -2083,12 +2213,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPlanet: {fileID: 1403106877}
-  segments: 1000
-  lineWidthStart: 100
-  lineWidthEnd: 100
-  lineColor: {r: 0.29803923, g: 0.45882356, b: 0.5568628, a: 1}
-  updateEveryFrame: 0
+  orbitSegments: 100
+  lineWidth: 0.1
+  orbitColor: {r: 1, g: 1, b: 1, a: 1}
+  orbitMaterial: {fileID: 0}
+  planetControl: {fileID: 0}
+  showOrbit: 1
+  updateOrbit: 0
 --- !u!1001 &1408962027
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2194,23 +2325,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetName: Planet
-  planetMass: 5.68000005560064e+26
-  planetDiameter: 116460000
-  kepler:
-    a: 0
-    e: 0
-    iDeg: 0
-    OmegaDeg: 0
-    omegaDeg: 0
-    M0Deg: 0
-    epochSeconds: 0
-  rotationDirection: 0
-  rotationPeriodHours: 10.699999809265137
-  rotationSpeedMultiplier: 1000
-  rotationObliquityDeg: 23.44
-  enableSpin: 1
-  kDistance: 5000
-  alphaDistance: 0.000000001
+  planetData:
+    name: 
+    mass: 0
+    diameter: 0
+    semiMajorAxis: 0
+    eccentricity: 0
+    inclination: 0
+    longitudeOfAscendingNode: 0
+    argumentOfPeriapsis: 0
+    meanAnomalyAtEpoch: 0
+    epoch: 0
+    distance: 0
+    alpha: 0
+    beta: 0
+    gamma: 0
+    rotationPeriod: 0
+    rotationSpeedMultiplier: 0
+    rotationObliquity: 0
+    orbitalPeriod: 0
+    meanMotion: 0
+    gravitationalParameter: 0
+  distanceScale: 0.000000001
+  sizeScale: 0.000001
+  timeScale: 1
+  enableRotation: 1
+  enableOrbit: 1
+  showDebugInfo: 0
 --- !u!120 &1470375756
 LineRenderer:
   serializedVersion: 2
@@ -2232,6 +2373,8 @@ LineRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2253,6 +2396,7 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -2330,12 +2474,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPlanet: {fileID: 1470375753}
-  segments: 1000
-  lineWidthStart: 100
-  lineWidthEnd: 100
-  lineColor: {r: 0.3803922, g: 0.39607847, b: 0.36862746, a: 1}
-  updateEveryFrame: 0
+  orbitSegments: 100
+  lineWidth: 0.1
+  orbitColor: {r: 1, g: 1, b: 1, a: 1}
+  orbitMaterial: {fileID: 0}
+  planetControl: {fileID: 0}
+  showOrbit: 1
+  updateOrbit: 0
 --- !u!1 &1529225852 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1733945558841920, guid: 300f80108a63f48618cb4a1c8b8c1e86, type: 3}
@@ -2359,23 +2504,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetName: Planet
-  planetMass: 5.972000231429685e+24
-  planetDiameter: 12756000
-  kepler:
-    a: 0
-    e: 0
-    iDeg: 0
-    OmegaDeg: 0
-    omegaDeg: 0
-    M0Deg: 0
-    epochSeconds: 0
-  rotationDirection: 0
-  rotationPeriodHours: 24
-  rotationSpeedMultiplier: 1000
-  rotationObliquityDeg: 23.44
-  enableSpin: 1
-  kDistance: 5000
-  alphaDistance: 0.000000001
+  planetData:
+    name: 
+    mass: 0
+    diameter: 0
+    semiMajorAxis: 0
+    eccentricity: 0
+    inclination: 0
+    longitudeOfAscendingNode: 0
+    argumentOfPeriapsis: 0
+    meanAnomalyAtEpoch: 0
+    epoch: 0
+    distance: 0
+    alpha: 0
+    beta: 0
+    gamma: 0
+    rotationPeriod: 0
+    rotationSpeedMultiplier: 0
+    rotationObliquity: 0
+    orbitalPeriod: 0
+    meanMotion: 0
+    gravitationalParameter: 0
+  distanceScale: 0.000000001
+  sizeScale: 0.000001
+  timeScale: 1
+  enableRotation: 1
+  enableOrbit: 1
+  showDebugInfo: 0
 --- !u!120 &1529225859
 LineRenderer:
   serializedVersion: 2
@@ -2397,6 +2552,8 @@ LineRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -2418,6 +2575,7 @@ LineRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
@@ -2495,12 +2653,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93c02968dd8e38b40b2925a7d9eac530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPlanet: {fileID: 1529225856}
-  segments: 1000
-  lineWidthStart: 100
-  lineWidthEnd: 100
-  lineColor: {r: 0.19215688, g: 0.3019608, b: 0.26666668, a: 1}
-  updateEveryFrame: 0
+  orbitSegments: 100
+  lineWidth: 0.1
+  orbitColor: {r: 1, g: 1, b: 1, a: 1}
+  orbitMaterial: {fileID: 0}
+  planetControl: {fileID: 0}
+  showOrbit: 1
+  updateOrbit: 0
 --- !u!1001 &1529562006
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2720,7 +2879,6 @@ MonoBehaviour:
   m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
-  m_Version: 2
   m_TaaSettings:
     m_Quality: 3
     m_FrameInfluence: 0.1
@@ -2728,6 +2886,7 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+  m_Version: 2
 --- !u!81 &1572860262
 AudioListener:
   m_ObjectHideFlags: 0
@@ -2830,23 +2989,33 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   planetName: Planet
-  planetMass: 5.972000231429685e+24
-  planetDiameter: 2377000
-  kepler:
-    a: 0
-    e: 0
-    iDeg: 0
-    OmegaDeg: 0
-    omegaDeg: 0
-    M0Deg: 0
-    epochSeconds: 0
-  rotationDirection: 1
-  rotationPeriodHours: 153
-  rotationSpeedMultiplier: 1000
-  rotationObliquityDeg: 23.44
-  enableSpin: 1
-  kDistance: 7500
-  alphaDistance: 0.000000001
+  planetData:
+    name: 
+    mass: 0
+    diameter: 0
+    semiMajorAxis: 0
+    eccentricity: 0
+    inclination: 0
+    longitudeOfAscendingNode: 0
+    argumentOfPeriapsis: 0
+    meanAnomalyAtEpoch: 0
+    epoch: 0
+    distance: 0
+    alpha: 0
+    beta: 0
+    gamma: 0
+    rotationPeriod: 0
+    rotationSpeedMultiplier: 0
+    rotationObliquity: 0
+    orbitalPeriod: 0
+    meanMotion: 0
+    gravitationalParameter: 0
+  distanceScale: 0.000000001
+  sizeScale: 0.000001
+  timeScale: 1
+  enableRotation: 1
+  enableOrbit: 1
+  showDebugInfo: 0
 --- !u!1001 &1921143279
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2912,8 +3081,16 @@ PrefabInstance:
       value: Sun
       objectReference: {fileID: 0}
     - target: {fileID: 3548356298615962880, guid: 5f776740c447e45afb25edbca842de92, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3548356298615962880, guid: 5f776740c447e45afb25edbca842de92, type: 3}
       propertyPath: m_TagString
       value: Sun
+      objectReference: {fileID: 0}
+    - target: {fileID: 7400510438367465617, guid: 5f776740c447e45afb25edbca842de92, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2968,16 +3145,39 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1650083338}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0b1bee9c133dad5449c47b1a34424194, type: 3}
+  m_Script: {fileID: 11500000, guid: 94629337d5698d54895760313f5197c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starMass: 1.989000014062259e+30
-  starDiameter: 1.3927e+9
-  visualScaleMultiplier: 3
-  autoScale: 1
-  debugInfo: 0
+  config:
+    distanceScale: 0.000000001
+    sizeScale: 0.000001
+    timeScale: 1
+    enableOrbits: 1
+    enableRotation: 1
+    autoStart: 1
+    sunSize: 100
+    sunColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    showOrbits: 1
+    orbitLineWidth: 0.1
+    orbitSegments: 100
+    orbitColors:
+    - {r: 1, g: 1, b: 1, a: 1}
+    - {r: 0, g: 0, b: 1, a: 1}
+    - {r: 0, g: 1, b: 0, a: 1}
+    - {r: 1, g: 0, b: 0, a: 1}
+    - {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+    - {r: 0, g: 1, b: 1, a: 1}
+    - {r: 1, g: 0, b: 1, a: 1}
+    - {r: 0.5, g: 0.5, b: 0.5, a: 1}
+    showDebugInfo: 0
+    debugMode: 0
+  dataLoader: {fileID: 0}
+  simulator: {fileID: 0}
+  orbitManager: {fileID: 0}
+  sunPrefab: {fileID: 0}
+  planetPrefabs: []
 --- !u!1 &1933235862
 GameObject:
   m_ObjectHideFlags: 0
@@ -3047,6 +3247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TimeScale: 100000
+  <SimulationTimeSeconds>k__BackingField: 0
 --- !u!1 &2044020426
 GameObject:
   m_ObjectHideFlags: 0
@@ -3137,3 +3338,4 @@ SceneRoots:
   - {fileID: 1572860264}
   - {fileID: 2044020428}
   - {fileID: 349169789}
+  - {fileID: 801943628}

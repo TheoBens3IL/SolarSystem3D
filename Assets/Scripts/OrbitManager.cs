@@ -22,7 +22,7 @@ public class OrbitManager : MonoBehaviour
     {
         if (solarSystemSimulator == null)
         {
-            solarSystemSimulator = FindObjectOfType<SolarSystemSimulator>();
+            solarSystemSimulator = FindFirstObjectByType<SolarSystemSimulator>();
         }
         
         if (solarSystemSimulator != null)

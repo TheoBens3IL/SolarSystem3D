@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -158,12 +159,12 @@ public class PlanetControl : MonoBehaviour
 
     public Vector3d GetOrbitalPosition()
     {
-        return orbit?.GetPosition() ?? Vector3d.zero;
+        return orbit?.GetPosition() ?? new Vector3d(0, 0, 0);
     }
 
     public Vector3d GetOrbitalVelocity()
     {
-        return orbit?.GetVelocity() ?? Vector3d.zero;
+        return orbit?.GetVelocity() ?? new Vector3d(0, 0, 0);
     }
 
     public double GetOrbitalPeriod()
@@ -188,7 +189,7 @@ public class PlanetControl : MonoBehaviour
         int segments = 100;
         float angleStep = 360f / segments;
         
-        Vector3d previousPosition = Vector3d.zero;
+        Vector3d previousPosition = new Vector3d(0, 0, 0);
         bool firstPoint = true;
 
         for (int i = 0; i <= segments; i++)
@@ -221,11 +222,11 @@ public class PlanetControl : MonoBehaviour
         double a = planetData.semiMajorAxis;
         double e = planetData.eccentricity;
         
-        double cosE = Math.Cos(eccentricAnomaly);
-        double sinE = Math.Sin(eccentricAnomaly);
+        double cosE = System.Math.Cos(eccentricAnomaly);
+        double sinE = System.Math.Sin(eccentricAnomaly);
         
         double x = a * (cosE - e);
-        double y = a * Math.Sqrt(1 - e * e) * sinE;
+        double y = a * System.Math.Sqrt(1 - e * e) * sinE;
         
         return new Vector3d(x, y, 0);
     }
@@ -237,12 +238,12 @@ public class PlanetControl : MonoBehaviour
         double omega = PlanetData.DegreesToRadians(planetData.longitudeOfAscendingNode);
         double w = PlanetData.DegreesToRadians(planetData.argumentOfPeriapsis);
 
-        double cosOmega = Math.Cos(omega);
-        double sinOmega = Math.Sin(omega);
-        double cosI = Math.Cos(i);
-        double sinI = Math.Sin(i);
-        double cosW = Math.Cos(w);
-        double sinW = Math.Sin(w);
+        double cosOmega = System.Math.Cos(omega);
+        double sinOmega = System.Math.Sin(omega);
+        double cosI = System.Math.Cos(i);
+        double sinI = System.Math.Sin(i);
+        double cosW = System.Math.Cos(w);
+        double sinW = System.Math.Sin(w);
 
         double[,] R = new double[3, 3];
         

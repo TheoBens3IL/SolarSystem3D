@@ -28,9 +28,9 @@ public class SolarSystemUI : MonoBehaviour
     void Start()
     {
         if (simulator == null)
-            simulator = FindObjectOfType<SolarSystemSimulator>();
+            simulator = FindFirstObjectByType<SolarSystemSimulator>();
         if (orbitManager == null)
-            orbitManager = FindObjectOfType<OrbitManager>();
+            orbitManager = FindFirstObjectByType<OrbitManager>();
     }
 
     void Update()
