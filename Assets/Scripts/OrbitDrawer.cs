@@ -40,7 +40,7 @@ public class OrbitDrawer : MonoBehaviour
             return;
         }
 
-        // 🔔 S’abonne à l’événement du PlanetControl
+        // S’abonne à l’événement du PlanetControl
         targetPlanet.OnKeplerElementsUpdated += OnPlanetKeplerReady;
 
         // Si la planète est déjà initialisée (cas rare mais utile)
