@@ -214,7 +214,7 @@ public class PlanetControl : MonoBehaviour
     {
         kepler = elements;
 
-        // Notifie les abonnés (comme OrbitDrawer)
+        // ✅ Notifie les abonnés (comme OrbitDrawer)
         OnKeplerElementsUpdated?.Invoke(this);
     }
 
